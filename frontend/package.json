@@ -16,6 +16,7 @@
     "react-router-bootstrap": "^0.26.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-toastify": "^8.1.0",
     "use-reducer-logger": "^1.0.2",
     "web-vitals": "^2.1.2"
   },
