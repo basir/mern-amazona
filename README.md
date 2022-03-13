@@ -1,6 +1,6 @@
 # MERN AMAZONA
 
-![amazona](/frontend/images/amazona.jpg)
+![amazona](/frontend/public/images/amazona.jpg)
 
 # React Tutorial - Build ECommerce in 6 Hours [2022]
 
