@@ -122,3 +122,6 @@ main {
   border-radius: 0 1rem 1rem 0;
   border-left: 0;
 }
+button.thumbnail {
+  padding: 0;
+}
