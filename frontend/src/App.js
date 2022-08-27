@@ -6,6 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
+import logo from './images/logo.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -34,6 +35,7 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
+import Shopscreen from './screens/Shopscreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -62,6 +64,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
+  
       <div
         className={
           sidebarIsOpen
@@ -74,8 +77,8 @@ function App() {
         }
       >
         <ToastContainer position="bottom-center" limit={1} />
-        <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
+        <header className='header-nav'>
+          <Navbar bg="dark" variant="dark" expand="lg" className='nav-menu'>
             <Container>
               <Button
                 variant="dark"
@@ -84,9 +87,7 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <LinkContainer to="/">
-                <Navbar.Brand>amazona</Navbar.Brand>
-              </LinkContainer>
+              
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
@@ -165,6 +166,12 @@ function App() {
             ))}
           </Nav>
         </div>
+        
+        <LinkContainer to="/" className='logo-container'>
+                <Navbar.Brand>
+                  <img src={logo} className='logo'/>
+                </Navbar.Brand>
+      </LinkContainer>
         <main>
           <Container className="mt-3">
             <Routes>
@@ -173,6 +180,7 @@ function App() {
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+              <Route path='shop' element={<Shopscreen />}/>
               <Route
                 path="/profile"
                 element={
