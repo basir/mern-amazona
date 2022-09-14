@@ -6,7 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import logo from './images/logo.png'
+//import logo from './images/logo.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -78,10 +78,10 @@ function App() {
       >
         <ToastContainer position="bottom-center" limit={1} />
         <header className='header-nav'>
-          <Navbar bg="dark" variant="dark" expand="lg" className='nav-menu'>
+          <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
             <Container>
               <Button
-                variant="dark"
+                variant="light btn-lg"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
@@ -93,15 +93,39 @@ function App() {
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
-                    Cart
+                  <i className='fas fa-shopping-cart'/>
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
                   </Link>
+                  <Link  className='nav-link' to='/'>
+                    Support
+                  </Link>
+                  <Link  className='nav-link' to='/'>
+                    Hotline
+                  </Link>
+                  {/**<Link  className='nav-link' to='/'>
+                    Custom
+                  </Link>
+                  <NavDropdown title='Countries' id='basic-nav-dropdown'>
+                   <LinkContainer to='/shop'>
+                    <NavDropdown.Item>United States</NavDropdown.Item>
+                   </LinkContainer>
+                   <LinkContainer to='/search'>
+                    <NavDropdown.Item>GCC</NavDropdown.Item>
+                   </LinkContainer>
+                   <LinkContainer to='/search'>
+                    <NavDropdown.Item>India</NavDropdown.Item>
+                   </LinkContainer>
+                   <LinkContainer to='/search'>
+                    <NavDropdown.Item>Europe</NavDropdown.Item>
+                   </LinkContainer>
+                    </NavDropdown>**/}
                   {userInfo ? (
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    
+                    <NavDropdown title={ userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
@@ -152,6 +176,11 @@ function App() {
         >
           <Nav className="flex-column text-white w-100 p-2">
             <Nav.Item>
+              <Link to='/'>
+                Home
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
             {categories.map((category) => (
@@ -167,11 +196,11 @@ function App() {
           </Nav>
         </div>
         
-        <LinkContainer to="/" className='logo-container'>
+        {/*<LinkContainer to="/" className='logo-container'>
                 <Navbar.Brand>
                   <img src={logo} className='logo'/>
                 </Navbar.Brand>
-      </LinkContainer>
+            </LinkContainer>*/}
         <main>
           <Container className="mt-3">
             <Routes>
@@ -180,7 +209,7 @@ function App() {
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
-              <Route path='shop' element={<Shopscreen />}/>
+              <Route path='/shop' element={<Shopscreen />}/>
               <Route
                 path="/profile"
                 element={
@@ -274,7 +303,7 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">All rights reserved</div>
+          <div className="text-center">All rights reserved &copy; 2022</div>
         </footer>
       </div>
     </BrowserRouter>

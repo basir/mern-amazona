@@ -57,6 +57,16 @@ export default function PaymentMethodScreen() {
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
+          <div className="mb-3 productEditScreenText">
+            <Form.Check
+              type="radio"
+              id="Cash"
+              label="Cash"
+              value="Cash"
+              checked={paymentMethodName === 'Cash on Delivery'}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            />
+          </div>
           <div className="mb-3">
             <Button type="submit">Continue</Button>
           </div>

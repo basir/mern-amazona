@@ -61,7 +61,7 @@ export default function ProductEditScreen() {
   const [images, setImages] = useState([]);
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState('');
-  const [brand, setBrand] = useState('');
+  const [countries, setCountry] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ProductEditScreen() {
         setImages(data.images);
         setCategory(data.category);
         setCountInStock(data.countInStock);
-        setBrand(data.brand);
+        setCountry(data.countries);
         setDescription(data.description);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
@@ -103,7 +103,7 @@ export default function ProductEditScreen() {
           image,
           images,
           category,
-          brand,
+          countries,
           countInStock,
           description,
         },
@@ -121,6 +121,7 @@ export default function ProductEditScreen() {
       dispatch({ type: 'UPDATE_FAIL' });
     }
   };
+
   const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -146,6 +147,7 @@ export default function ProductEditScreen() {
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
     }
   };
+
   const deleteFileHandler = async (fileName, f) => {
     console.log(fileName, f);
     console.log(images);
@@ -153,6 +155,7 @@ export default function ProductEditScreen() {
     setImages(images.filter((x) => x !== fileName));
     toast.success('Image removed successfully. click Update to apply it');
   };
+  
   return (
     <Container className="small-container">
       <Helmet>
@@ -235,14 +238,14 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
-          {/*<Form.Group className="mb-3" controlId="brand">
-            <Form.Label>Brand</Form.Label>
+          {<Form.Group className="mb-3" controlId="countries">
+            <Form.Label>Countries Listed</Form.Label>
             <Form.Control
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              value={countries}
+              onChange={(e) => setCountry(e.target.value)}
               required
             />
-              </Form.Group>**/}
+              </Form.Group>}
 
           <Form.Group className="mb-3" controlId="countInStock">
             <Form.Label className='productEditScreenText'>Count In Stock</Form.Label>

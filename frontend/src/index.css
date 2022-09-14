@@ -2,13 +2,14 @@
 
 body {
   margin: 0;
-  font-family: cursive; font-style: normal; font-variant: normal; font-weight: 400; line-height: 26.4px; 
-  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /*font-family: cursive; font-style: normal; font-variant: normal; font-weight: 400; line-height: 26.4px; */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;*/
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/*
 .logo-container{
   display: flex;
   background-color: inherit;
@@ -16,22 +17,22 @@ body {
   width: 100%;
   background: rgb(99,82,45);
 background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 0%);
-}
+}*/
 .logo{
   object-fit: contain;
   width: 100%;
   height: 200px;
 }
-.header-nav{
+/*.header-nav{
   background: rgb(99,82,45);
   background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 62%);
 }
 .nav-menu{
   background: rgb(99,82,45);
   background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 82%);
-}
+}*/
 i{
-  color: #ca8a04;
+  color: #046eca;
 }
 .universal-text-color{
   color: #6b7280;
@@ -40,11 +41,11 @@ i{
   min-height: 100vh;
 }
 h1, h2, h3, h4{
-  color: aliceblue;
+  color: rgb(32, 35, 37);
 }
 main {
   flex: 1;
-  background-color: rgb(15 23 42);
+  background-color: white;
 }
 .btn-primary,
 .btn-outline-primary {
@@ -162,7 +163,7 @@ padding: 12px;
 }
 
 .productEditScreenText{
-  color: #fff;
+  color: rgb(34, 29, 29);
 }
 .sec-two-images{
   max-width: 400px;
@@ -218,7 +219,7 @@ th{
   color: rgb(7, 192, 192);
 }
 td{
-  color: white;
+  color: rgb(26, 22, 22);
 }
 
 

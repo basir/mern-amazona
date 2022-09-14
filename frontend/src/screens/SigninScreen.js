@@ -68,9 +68,16 @@ export default function SigninScreen() {
           <Button type="submit">Sign In</Button>
         </div>
         <div className="mb-3 universal-text-color">
+          {/*New customer?{' '}*/}
+          <Link to={`/signup?redirect=${redirect}`} >Forgot password</Link>
+
+        </div>
+        <div className="mb-3 universal-text-color">
           New customer?{' '}
           <Link to={`/signup?redirect=${redirect}`} >Create your account</Link>
+
         </div>
+
       </Form>
     </Container>
   );
