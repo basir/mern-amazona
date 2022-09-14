@@ -6,7 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-//import logo from './images/logo.png'
+import logo from './images/logo.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -36,6 +36,9 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 import Shopscreen from './screens/Shopscreen';
+
+
+
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -80,12 +83,14 @@ function App() {
         <header className='header-nav'>
           <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
             <Container>
+         
               <Button
                 variant="light btn-lg"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
               </Button>
+             
 
               
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
