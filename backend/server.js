@@ -1,5 +1,6 @@
 import path from 'path';
 import mongoose from 'mongoose';
+import express from 'express'
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoutes.js';
 import productRouter from './routes/productRoutes.js';
@@ -8,7 +9,6 @@ import orderRouter from './routes/orderRoutes.js';
 import uploadRouter from './routes/uploadRoutes.js';
 
 
-const express = require('express')
 
 dotenv.config();
 

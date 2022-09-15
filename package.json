@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd frontend && npm run build",
-    "install-client": "cd frontend && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "client": "cd frontend && npm start",
+    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
     "start": "node backend/server.js"
   },
   "repository": {
@@ -20,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/octa230/chateau/issues"
   },
-  "homepage": "https://github.com/octa230/chateau#readme"
+  "homepage": "https://github.com/octa230/chateau#readme",
+  "dependencies": {
+    "client": "^0.0.1"
+  }
 }
