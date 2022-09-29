@@ -6,7 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import logo from './images/logo.png'
+import LOGO from './images/LOGO.jpeg'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -82,15 +82,24 @@ function App() {
         <ToastContainer position="bottom-center" limit={1} />
         <header className='header-nav'>
           <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
+      
             <Container>
-         
+              
               <Button
                 variant="light btn-lg"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
               </Button>
-             
+
+              <Navbar.Brand>
+          <img 
+          className='fluid d-inline-block align-top fluid'
+          width={220}
+          height={140}
+          src={LOGO}/>
+
+          </Navbar.Brand>
 
               
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -105,10 +114,10 @@ function App() {
                       </Badge>
                     )}
                   </Link>
-                  <Link  className='nav-link' to='/'>
+                  <Link  className='nav-link' to='#' onClick={(e)=>{window.location.href='mailto:info@binarymall.net'; e.preventDefault()}}>
                     Support
                   </Link>
-                  <Link  className='nav-link' to='/'>
+                  <Link  className='nav-link' to='#' onClick={(e) =>{window.location.href='tel:+256756613319'}}>
                     Hotline
                   </Link>
                   {/**<Link  className='nav-link' to='/'>

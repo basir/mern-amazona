@@ -145,7 +145,7 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Pirce : AED:{product.price}</ListGroup.Item>
+            <ListGroup.Item>Pirce : UGX:{product.price}</ListGroup.Item>
             <ListGroup.Item>
               <Row xs={1} md={2} className="g-2">
                 {[product.image, ...product.images].map((x) => (
@@ -177,7 +177,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col>AED:{product.price}</Col>
+                    <Col>UGX:{product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
