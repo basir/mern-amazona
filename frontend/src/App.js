@@ -95,7 +95,7 @@ function App() {
               <Navbar.Brand>
           <img 
           className='fluid d-inline-block align-top fluid'
-          width={220}
+          width={200}
           height={140}
           src={LOGO}/>
 
