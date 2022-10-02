@@ -16,6 +16,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",
     "react-bootstrap-icons": "^1.8.4",
+    "react-date-object": "^2.1.5",
     "react-dom": "^17.0.2",
     "react-google-charts": "^4.0.0",
     "react-helmet-async": "^1.2.2",

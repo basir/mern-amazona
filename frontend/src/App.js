@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
@@ -36,6 +36,9 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 import Shopscreen from './screens/Shopscreen';
+import Col from 'react-bootstrap/esm/Col';
+import Row from 'react-bootstrap/esm/Row';
+import DateObject from'react-date-object';
 
 
 
@@ -43,7 +46,11 @@ import Shopscreen from './screens/Shopscreen';
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
+  const Date = new DateObject()
 
+
+  
+  
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
@@ -51,8 +58,11 @@ function App() {
     localStorage.removeItem('paymentMethod');
     window.location.href = '/signin';
   };
+
+
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -92,12 +102,15 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <Navbar.Brand>
-          <img 
+          <Navbar.Brand >
+          <Link to={'/'}>
+          <img
           className='fluid d-inline-block align-top fluid'
           width={200}
           height={140}
+          alt={'logo'}
           src={LOGO}/>
+          </Link>
 
           </Navbar.Brand>
 
@@ -203,7 +216,7 @@ function App() {
                   to={`/search?category=${category}`}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category}</Nav.Link>
+                  <Nav.Link>{category.toUpperCase()}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
@@ -316,9 +329,53 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer>
-          <div className="text-center">All rights reserved &copy; 2022</div>
+
+        <footer className='p-y-4 justify-content-center Footer'>
+          <Row className='footer-row'>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Contact Us</h5>
+            <ul className='list-group'> 
+                <li>Email: <span>info@binarymall.net</span></li>
+                <li>Phone: <span>+256782144414</span></li>
+                <li>Address: <span>Namungoona Nakibinge Road <br/>Metropolitan University</span></li>
+                <li>Operating: <span>Mon - Sun</span></li>
+                <li>Hours: <span>24(GMT+3) </span></li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Our Services</h5>
+            <ul className='list-group'> 
+                <li>Retail</li>
+                <li>Trade</li>
+                <li>Brand Development</li>
+                <li>Advertisment</li>
+                <li>Events</li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Quick Links</h5>
+            <ul className='list-group'> 
+                <li>Carrers</li>
+                <li>Become Supplier</li>
+                <li>Become Seller</li>
+                <li>Advertisment</li>
+                <li>Become Partner</li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Socials</h5>
+            <ul className='list-group'> 
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>Pinterest</li>
+                <li>Twitter</li>
+                <li>Linked In</li>
+            </ul>
+          </Col>
+          </Row>
         </footer>
+        <div className='text-center'> Product Under Test Mode</div>
+        <div className='text-center'>copyright &copy; {Date.format()}</div>
       </div>
     </BrowserRouter>
   );

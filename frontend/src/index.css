@@ -46,6 +46,8 @@ h1, h2, h3, h4{
 main {
   flex: 1;
   background-color: white;
+  
+  
 }
 .btn-primary,
 .btn-outline-primary {
@@ -271,4 +273,16 @@ td{
   height: auto;
   color: tan;
   border: tan solid 1px;
+}
+
+.Footer{
+  background-color: #404040;
+  color: aliceblue;
+  min-height: 400px;
+}
+.Footer ul li{
+  list-style: none;
+}
+.footer-row{
+  padding: 25px;
 }

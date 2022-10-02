@@ -38,7 +38,7 @@ function Product(props) {
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>UGX: {product.price}</Card.Text>
+        <Card.Text>UGX: {product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock

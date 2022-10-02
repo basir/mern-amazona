@@ -21,7 +21,7 @@ productRouter.post(
       image: '/images/p1.jpg',
       price: 0,
       category: 'sample category',
-      countiries: 'sample country',
+      brand: 'sample brand',
       countInStock: 0,
       rating: 0,
       numReviews: 0,
@@ -46,7 +46,7 @@ productRouter.put(
       product.image = req.body.image;
       product.images = req.body.images;
       product.category = req.body.category;
-      product.countiries = req.body.countiries;
+      product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
       await product.save();
@@ -108,7 +108,7 @@ productRouter.post(
   })
 );
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 6;
 
 productRouter.get(
   '/admin',

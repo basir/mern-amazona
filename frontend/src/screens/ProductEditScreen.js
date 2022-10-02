@@ -61,7 +61,7 @@ export default function ProductEditScreen() {
   const [images, setImages] = useState([]);
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState('');
-  const [countries, setCountry] = useState('');
+  const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ProductEditScreen() {
         setImages(data.images);
         setCategory(data.category);
         setCountInStock(data.countInStock);
-        setCountry(data.countries);
+        setBrand(data.brand);
         setDescription(data.description);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
@@ -103,7 +103,7 @@ export default function ProductEditScreen() {
           image,
           images,
           category,
-          countries,
+          brand,
           countInStock,
           description,
         },
@@ -239,11 +239,11 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           {<Form.Group className="mb-3" controlId="countries">
-            <Form.Label>Countries Listed</Form.Label>
+            <Form.Label>Brand</Form.Label>
             <Form.Control
-              value={countries}
-              onChange={(e) => setCountry(e.target.value)}
-              required
+              value={brand}
+              onChange={(e) => setBrand(e.target.value)}
+              required={false}
             />
               </Form.Group>}
 

@@ -7372,6 +7372,11 @@
     "uncontrollable" "^7.2.1"
     "warning" "^4.0.3"
 
+"react-date-object@^2.1.5":
+  "integrity" "sha512-iAtF2nz+jZjy3w36qKx2MsxXqbiL7UgGljz9jPjLWxWCl4rDTZUMS/i7hKKiVbL1lJlmubz1Xu6W3i6CW06kTg=="
+  "resolved" "https://registry.npmjs.org/react-date-object/-/react-date-object-2.1.5.tgz"
+  "version" "2.1.5"
+
 "react-dev-utils@^12.0.0":
   "integrity" "sha512-xBQkitdxozPxt1YZ9O1097EJiVpwHr9FoAuEVURCKV0Av8NBERovJauzP7bo1ThvuhZ4shsQ1AJiu4vQpoT1AQ=="
   "resolved" "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-12.0.0.tgz"
