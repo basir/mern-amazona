@@ -131,7 +131,7 @@ export default function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>UGX:{item.price}</Col>
+                      <Col md={3}>UGX:{item.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -148,19 +148,19 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>UGX:{cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>UGX:{cart.itemsPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>UGX:{cart.shippingPrice.toFixed(2)}</Col>
+                    <Col>UGX:{cart.shippingPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>UGX:{cart.taxPrice.toFixed(2)}</Col>
+                    <Col>UGX:{cart.taxPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -169,7 +169,7 @@ export default function PlaceOrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>UGX:{cart.totalPrice.toFixed(2)}</strong>
+                      <strong>UGX:{cart.totalPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

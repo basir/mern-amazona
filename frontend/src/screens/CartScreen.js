@@ -82,7 +82,7 @@ export default function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>UGX:{item.price}</Col>
+                    <Col md={3}>UGX:{item.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -105,7 +105,7 @@ export default function CartScreen() {
                   <h3 className='universal-text-color'>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
                     items) UGX:  
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>

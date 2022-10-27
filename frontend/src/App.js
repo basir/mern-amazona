@@ -6,7 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import LOGO from './images/LOGO.jpeg'
+import LOGO from './images/binarii.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -38,7 +38,6 @@ import MapScreen from './screens/MapScreen';
 import Shopscreen from './screens/Shopscreen';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
-import DateObject from'react-date-object';
 
 
 
@@ -46,7 +45,7 @@ import DateObject from'react-date-object';
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
-  const Date = new DateObject()
+  const date = new Date()
 
 
   
@@ -102,12 +101,12 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-          <Navbar.Brand >
+          <Navbar.Brand>
           <Link to={'/'}>
           <img
-          className='fluid d-inline-block align-top fluid'
+          className=' brand fluid d-inline-block align-top fluid'
           width={200}
-          height={140}
+          height={120}
           alt={'logo'}
           src={LOGO}/>
           </Link>
@@ -204,7 +203,7 @@ function App() {
           <Nav className="flex-column text-white w-100 p-2">
             <Nav.Item>
               <Link to='/'>
-                Home
+              <i className="fa fa-home" aria-hidden="true">HOME</i>
               </Link>
             </Nav.Item>
             <Nav.Item>
@@ -216,7 +215,7 @@ function App() {
                   to={`/search?category=${category}`}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category.toUpperCase()}</Nav.Link>
+                  <Nav.Link className='categLink'>{category.toUpperCase()}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
@@ -337,7 +336,8 @@ function App() {
             <ul className='list-group'> 
                 <li>Email: <span>info@binarymall.net</span></li>
                 <li>Phone: <span>+256782144414</span></li>
-                <li>Address: <span>Namungoona Nakibinge Road <br/>Metropolitan University</span></li>
+                <li>Phone: <span>+256701583150</span></li>
+                <li>Address: <span>Namungoona Nakibinge Road \n<br/>Metropolitan University</span></li>
                 <li>Operating: <span>Mon - Sun</span></li>
                 <li>Hours: <span>24(GMT+3) </span></li>
             </ul>
@@ -375,7 +375,7 @@ function App() {
           </Row>
         </footer>
         <div className='text-center'> Product Under Test Mode</div>
-        <div className='text-center'>copyright &copy; {Date.format()}</div>
+        <div className='text-center'>copyright &copy; {date.getFullYear()}</div>
       </div>
     </BrowserRouter>
   );
