@@ -1,11 +1,15 @@
 import React from 'react'
 import axios from 'axios'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
+//import LoadingBox from '../components/LoadingBox'
+//import MessageBox from '../components/MessageBox'
 import Row from 'react-bootstrap/esm/Row'
 import Col from 'react-bootstrap/esm/Col'
 import Product from '../components/Product'
 import { useEffect, useReducer, useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel'
+import banner2 from '../images/banner2.png'
+import InfiniteScroll from 'react-infinite-scroll-component'
+
 
 
 
@@ -14,7 +18,11 @@ const reducer = (state, action) => {
       case 'FETCH_REQUEST':
         return { ...state, loading: true };
       case 'FETCH_SUCCESS':
-        return { ...state, products: action.payload, loading: false };
+        return { 
+          ...state, 
+          products: action.payload,
+          loading: false 
+        };
       case 'FETCH_FAIL':
         return { ...state, loading: false, error: action.payload };
       default:
@@ -25,6 +33,7 @@ const reducer = (state, action) => {
   
 
 export default function Shopscreen() {
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,22 +58,41 @@ export default function Shopscreen() {
     
   return (
     <div>
-        <h1>Featured</h1>
+      <Carousel interval={150}>
+        <Carousel.Item>
+          <img
+          className='d-block w-100'
+          src={banner2}
+          alt='slide one'
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+          className='d-block w-100'
+          src={banner2}
+          alt='slide two'
+          />
+        </Carousel.Item>
+      </Carousel>
+
+        <h1 className='featured'>Featured</h1>
+
         <div className="products">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-        
-          <Row>
+
+          <InfiniteScroll
+          dataLength={products.length}
+          hasMore={true}
+          next={products.fetchMoreData}
+          >
+            <Row>
             {products.map((product) => (
               <Col key={product.slug} sm={6} md={4} lg={4} className="mb-3">
                 <Product product={product}></Product>
               </Col>
             )).reverse()}
-          </Row>
-        )}
+            </Row>
+          </InfiniteScroll>
+        
       </div>
       
     </div>

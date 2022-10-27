@@ -5,6 +5,7 @@ import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { toast } from 'react-toastify';
 
 function Product(props) {
   const { product } = props;
@@ -15,7 +16,7 @@ function Product(props) {
   } = state;
 
   const addToCartHandler = async (item) => {
-    window.alert('item added to cart')
+    toast.success('item added to cart')
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${item._id}`);

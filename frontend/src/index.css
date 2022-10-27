@@ -4,32 +4,17 @@ body {
   box-sizing: border-box;
   margin: 0;
   font-family: 'Chakra Petch', sans-serif;
-  font-weight: 300;
+  font-weight: 800;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/*
-.logo-container{
-  display: flex;
-  background-color: inherit;
-  justify-content: center;
-  width: 100%;
-  background: rgb(99,82,45);
-background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 0%);
-}*/
+
 .logo{
   object-fit: contain;
   width: 100%;
   height: 200px;
 }
-/*.header-nav{
-  background: rgb(99,82,45);
-  background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 62%);
-}
-.nav-menu{
-  background: rgb(99,82,45);
-  background: radial-gradient(circle, rgba(99,82,45,1) 0%, rgba(0,0,0,1) 82%);
-}*/
+
 i{
   color: #046eca;
 }
@@ -130,6 +115,13 @@ padding: 2px;
 
 .categLink{
   color: antiquewhite;
+}
+
+.featured{
+  font-weight: 500;
+  padding-top: 62px;
+  padding-bottom:42px ;
+  text-align: center;
 }
 
 .site-container {
