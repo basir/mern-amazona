@@ -20,6 +20,7 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.1.5",
     "multer": "^1.4.4",
+    "react-scripts": "^5.0.1",
     "streamifier": "^0.1.1"
   },
   "devDependencies": {

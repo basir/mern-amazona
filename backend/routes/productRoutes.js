@@ -108,7 +108,7 @@ productRouter.post(
   })
 );
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 6;
 
 productRouter.get(
   '/admin',
@@ -139,6 +139,7 @@ productRouter.get(
     const pageSize = query.pageSize || PAGE_SIZE;
     const page = query.page || 1;
     const category = query.category || '';
+    const country = query.countiries || '';
     const price = query.price || '';
     const rating = query.rating || '';
     const order = query.order || '';

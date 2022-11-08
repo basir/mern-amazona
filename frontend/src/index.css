@@ -1,42 +1,82 @@
+
+
 body {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 800;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.logo{
+  object-fit: contain;
+  width: 100%;
+  height: 200px;
+}
+
+i{
+  color: #046eca;
+}
+.universal-text-color{
+  color: #6b7280;
 }
 .site-container {
   min-height: 100vh;
 }
+h1, h2, h3, h4{
+  color: rgb(32, 35, 37);
+}
 main {
   flex: 1;
+  background-color: white;
+  
+  
 }
 .btn-primary,
 .btn-outline-primary {
-  background-color: #f0c040;
-  color: #000000;
-}
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  background-color: rgba(210, 180, 140, 0);
+  border-color: rgb(100 116 139);
+  color: rgb(91, 98, 103)
 }
 
-.rating span {
-  color: #ffc000;
+/*hero section*/
+
+
+/*shop*/
+.products {
+display: flex;
+justify-content: center;
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.25);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.2px);
+-webkit-backdrop-filter: blur(7.2px);
+border: 1px solid rgba(255, 255, 255, 0.11);
+padding: 2px;
+}
+
+.rating > span {
+  color: teal;
 }
 
 .product {
   border: 1px #404040 solid;
   margin: 1rem;
+  color: #1F2937;
 }
-.product img {
+.product > img {
   width: 100%;
   max-width: 400px;
 }
 .product-info {
   padding: 1rem;
+}
+.product-link{
+  padding: 12px;
+  max-height: 4rem;
+  margin: 12px;
 }
 .img-large {
   max-width: 100%;
@@ -49,25 +89,39 @@ main {
 }
 
 .checkout-steps > div {
-  border-bottom: 0.2rem solid #a0a0a0;
-  color: #a0a0a0;
+  border-bottom: 0.2rem solid mediumaquamarine;
+  color: mediumaquamarine;
 }
 .checkout-steps > div.active {
-  border-bottom: 0.2rem solid #f08000;
-  color: #f08000;
+  border-bottom: 0.2rem solid teal;
+  color: teal;
 }
 
 /* sidebar */
-.navbar-brand {
-  font-weight: bold;
+.brand {
+  height: 100px;
+  padding-bottom: 10px;
+  margin-top: 0;
 }
 .side-navbar {
   width: 240px;
   height: 100%;
   position: absolute;
   left: -300px;
-  background-color: #100901;
+  background-color: #1F2937;
   transition: 0.5s;
+  z-index: 1;
+}
+
+.categLink{
+  color: antiquewhite;
+}
+
+.featured{
+  font-weight: 500;
+  padding-top: 62px;
+  padding-bottom:42px ;
+  text-align: center;
 }
 
 .site-container {
@@ -81,6 +135,13 @@ main {
 }
 .text-bold {
   font-weight: bold;
+}
+
+.productEditScreenText{
+  color: rgb(34, 29, 29);
+}
+.sec-two-images{
+  max-width: 400px;
 }
 
 /* Map */
@@ -124,4 +185,86 @@ main {
 }
 button.thumbnail {
   padding: 0;
+}
+.product-link{
+  color: goldenrod;
+  text-decoration: none;
+}
+th{
+  color: rgb(7, 192, 192);
+}
+td{
+  color: rgb(26, 22, 22);
+}
+
+
+/* Start Screen styles*/
+
+
+.sec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+.section1 {
+  background-color: #ffcc99;
+  flex-wrap: wrap;
+  flex-grow: 1;
+
+}
+.section2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 5px;
+  flex-grow: 1;
+  background-color: black;
+}
+.section3 {
+  background-color: mintcream;
+}
+.start-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+.navigation-start {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  position: absolute;
+  top: 12px;
+}
+.navigation-start li {
+  list-style: none;
+  margin: 0px;
+}
+.box-element {
+  width: 400px;
+  height: auto;
+  color: tan;
+  border: tan solid 1px;
+}
+
+.Footer{
+  background-color: #1F2937;
+  color: aliceblue;
+  min-height: 400px;
+}
+.Footer ul li{
+  list-style: none;
+}
+.footer-row{
+  padding: 25px;
+}
+.productCard{
+  position: relative;
+
+  min-width: 300px;
+  min-height: 400px;
+  margin: 4px;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
 }
