@@ -6,7 +6,7 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import LOGO from './images/binarii.png'
+import LOGO from './images/biinar_ii.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -104,8 +104,8 @@ function App() {
           <Navbar.Brand>
           <Link to={'/'}>
           <img
-          className=' brand fluid d-inline-block align-top fluid'
-          width={200}
+          className='brand-fluid d-inline-block position-relative'
+          width={210}
           height={120}
           alt={'logo'}
           src={LOGO}/>
@@ -337,7 +337,7 @@ function App() {
                 <li>Email: <span>info@binarymall.net</span></li>
                 <li>Phone: <span>+256782144414</span></li>
                 <li>Phone: <span>+256701583150</span></li>
-                <li>Address: <span>Namungoona Nakibinge Road \n<br/>Metropolitan University</span></li>
+                <li>Address: <span>Namungoona Nakibinge Road next to<br/>Metropolitan University</span></li>
                 <li>Operating: <span>Mon - Sun</span></li>
                 <li>Hours: <span>24(GMT+3) </span></li>
             </ul>
