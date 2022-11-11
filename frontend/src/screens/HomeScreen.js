@@ -72,7 +72,7 @@ export default function HomeScreen() {
           <InfiniteScroll
           dataLength={products.length}
           hasMore={true}
-          next={fetchMoreData}
+          next={products.fetchMoreData}
           >
             <Row>
             {products.map((product) => (
