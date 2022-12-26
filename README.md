@@ -310,3 +310,10 @@ $ npm start
     1. add images to product model
     2. get images in edit screen
     3. show images in product screen
+54. Upgrade To React 18
+    1. install node-check-updates
+    2. ncu -u
+    3. remove package-lock.json
+    4. npm install
+    5. replace render with createRoot
+    6. fix LinkContainer error
