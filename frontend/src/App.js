@@ -88,7 +88,7 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
-        <ToastContainer position="bottom-center" limit={1} />
+        <ToastContainer position="top-center" limit={2} />
         <header className='header-nav'>
           <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
       

@@ -14,6 +14,7 @@
     "aos": "^3.0.0-beta.6",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",
     "react-bootstrap-icons": "^1.8.4",

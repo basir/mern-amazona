@@ -40,7 +40,7 @@ function Product(props) {
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>UGX: {product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Card.Text>
+        <Card.Text className='p-4'>UGX: {product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock
@@ -48,7 +48,7 @@ function Product(props) {
         ) : (
           <div className='d-grid gap-2 justify-content-center'>
               <Button onClick={() => addToCartHandler(product)} 
-              className='btn-secondary btn-sm' >I LIKE <span>
+              className='btn-secondary btn-md' >I LIKE <span>
               <i className='fas fa-shopping-cart'/></span></Button>
           </div>
         )}
