@@ -32,9 +32,6 @@ main {
   background-color: white; 
 }
 
-.slide{
-  height: 550px;
-}
 .btn-primary,
 .btn-outline-primary {
   background-color: rgba(210, 180, 140, 0);
