@@ -1,6 +1,13 @@
 import jwt from 'jsonwebtoken';
 import mg from 'mailgun-js';
 
+export const baseUrl = () =>
+  process.env.BASE_URL
+    ? process.env.BASE_URL
+    : process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:3000'
+    : 'https://yourdomain.com';
+
 export const generateToken = (user) => {
   return jwt.sign(
     {
