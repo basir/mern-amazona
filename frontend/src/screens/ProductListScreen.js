@@ -33,18 +33,12 @@ const reducer = (state, action) => {
       };
     case 'CREATE_FAIL':
       return { ...state, loadingCreate: false };
-
     case 'DELETE_REQUEST':
       return { ...state, loadingDelete: true, successDelete: false };
     case 'DELETE_SUCCESS':
-      return {
-        ...state,
-        loadingDelete: false,
-        successDelete: true,
-      };
+      return {...state, loadingDelete: false, successDelete: true};
     case 'DELETE_FAIL':
       return { ...state, loadingDelete: false, successDelete: false };
-
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
     default:
@@ -62,12 +56,7 @@ export default function ProductListScreen() {
       loadingCreate,
       loadingDelete,
       successDelete,
-    },
-    dispatch,
-  ] = useReducer(reducer, {
-    loading: true,
-    error: '',
-  });
+    }, dispatch] = useReducer(reducer, {loading: true, error: ''});
 
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -94,6 +83,7 @@ export default function ProductListScreen() {
       fetchData();
     }
   }, [page, userInfo, successDelete]);
+
 
   const createHandler = async () => {
     if (window.confirm('Are you sure to create?')) {
@@ -122,7 +112,7 @@ export default function ProductListScreen() {
     if (window.confirm('Are you sure to delete?')) {
       try {
         await axios.delete(`/api/products/${product._id}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+          headers: { Authorization: `Bearer ${userInfo.token}`},
         });
         toast.success('product deleted successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
