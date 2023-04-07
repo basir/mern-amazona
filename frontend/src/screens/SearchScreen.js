@@ -71,6 +71,10 @@ export const ratings = [
   },
 ];
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 38913db1ce57f74668d97ad59fd8c2faf91ed883
 
 export default function SearchScreen() {
   const navigate = useNavigate();
@@ -99,7 +103,7 @@ export default function SearchScreen() {
       } catch (err) {
         dispatch({
           type: 'FETCH_FAIL',
-          payload: getError(error),
+          payload: getError(err),
         });
       }
     };
@@ -146,7 +150,7 @@ export default function SearchScreen() {
                   Any
                 </Link>
               </li>
-              {categories.map((c) => (
+              {categories && categories.map((c) => (
                 <li key={c}>
                   <Link
                     className={c === category ? 'text-bold' : ''}
@@ -249,12 +253,12 @@ export default function SearchScreen() {
                   </select>
                 </Col>
               </Row>
-              {products.length === 0 && (
+              {products && products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}
 
               <Row>
-                {products.map((product) => (
+                {products && products.map((product) => (
                   <Col sm={6} lg={4} className="mb-3" key={product._id}>
                     <Product product={product}></Product>
                   </Col>

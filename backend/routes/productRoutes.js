@@ -67,7 +67,7 @@ productRouter.delete(
       await product.remove();
       res.send({ message: 'Product Deleted' });
     } else {
-      res.status(404).send({ message: 'Product Not Found' });
+      res.status(404).send({ message: 'Product Not Found'});
     }
   })
 );
@@ -78,6 +78,7 @@ productRouter.post(
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
+    
     if (product) {
       if (product.reviews.find((x) => x.name === req.user.name)) {
         return res
@@ -139,7 +140,6 @@ productRouter.get(
     const pageSize = query.pageSize || PAGE_SIZE;
     const page = query.page || 1;
     const category = query.category || '';
-    const brand = query.brand || '';
     const price = query.price || '';
     const rating = query.rating || '';
     const order = query.order || '';
@@ -191,7 +191,6 @@ productRouter.get(
       ...categoryFilter,
       ...priceFilter,
       ...ratingFilter,
-      ...brandFilter,
     })
       .sort(sortOrder)
       .skip(pageSize * (page - 1))
@@ -202,7 +201,6 @@ productRouter.get(
       ...categoryFilter,
       ...priceFilter,
       ...ratingFilter,
-      ...brandFilter,
     });
     res.send({
       products,
@@ -229,6 +227,7 @@ productRouter.get('/slug/:slug', async (req, res) => {
     res.status(404).send({ message: 'Product Not Found' });
   }
 });
+
 productRouter.get('/:id', async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {

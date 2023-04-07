@@ -22,6 +22,8 @@ export default function SignupScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {

@@ -7,9 +7,11 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import Carousel from 'react-bootstrap/Carousel'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import shuffle from 'lodash'
 import banner2 from '../images/banner2.png'
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Container from 'react-bootstrap/esm/Container';
 // import data from '../data';
 
 const reducer = (state, action) => {
@@ -26,12 +28,11 @@ const reducer = (state, action) => {
 };
 
 export default function HomeScreen() {
-  const [{ loading, error, products }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, products }, dispatch] = useReducer((reducer), {
     products: [],
     loading: true,
     error: '',
   });
-  // const [products, setProducts]= useState([])
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -46,26 +47,27 @@ export default function HomeScreen() {
     };
     fetchData();
   }, []);
+
   return (
-    <div>
-      <Carousel>
-        <Carousel.Item>
-          <img
-          className='d-block w-100'
-          src={banner2}
-          alt='slide one'
-          />
-        </Carousel.Item>
-{/*         <Carousel.Item>
-          <img
-          className='d-block w-100'
-          src={banner2}
-          alt='slide two'
-          />
-        </Carousel.Item> */}
+    loading ? <LoadingBox /> :(
+    <Container fluid>
+      <Helmet>
+        <title>Biinarii</title>
+      </Helmet>
+     
+
+        <h1 className='featured'>Featured This Week</h1>
+
+        <Carousel variant='dark' indicators={false}>
+          {products.map((product)=>(
+            <Carousel.Item className='slide'  key={product.slug} >
+              <Product product={product} Rating={undefined} />
+            </Carousel.Item>
+          ))}
       </Carousel>
 
-        <h1 className='featured'>Featured</h1>
+
+      <h1 className='featured d-flex justify-content-center'>For Your Eyes</h1>
 
         <div className="products">
 
@@ -81,10 +83,9 @@ export default function HomeScreen() {
               </Col>
             )).reverse()}
             </Row>
-          </InfiniteScroll>
-        
-      </div>
-      
-    </div>
+          </InfiniteScroll>       
+      </div>    
+    </Container>
+    )
   )
 }
