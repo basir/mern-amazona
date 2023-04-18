@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes} from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
@@ -35,17 +35,12 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
-<<<<<<< HEAD
 import Shopscreen from './screens/Shopscreen';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
-
-
-
-=======
 import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
->>>>>>> ffb66563a122c0a8a2990933e02da216882da54f
+
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);

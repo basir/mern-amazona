@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-import path from 'path';
-import mongoose from 'mongoose';
+
 import express from 'express'
-import dotenv from 'dotenv';
-import seedRouter from './routes/seedRoutes.js';
-import productRouter from './routes/productRoutes.js';
-import userRouter from './routes/userRoutes.js';
-import orderRouter from './routes/orderRoutes.js';
-import uploadRouter from './routes/uploadRoutes.js';
-=======
-import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -18,7 +8,7 @@ import productRouter from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import uploadRouter from "./routes/uploadRoutes.js";
->>>>>>> ffb66563a122c0a8a2990933e02da216882da54f
+
 
 
 
@@ -61,12 +51,8 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
-<<<<<<< HEAD
-
 const port = process.env.PORT || 6000;
-=======
-const port = process.env.PORT || 4000;
->>>>>>> ffb66563a122c0a8a2990933e02da216882da54f
+
 app.listen(port, () => {
   console.log(`serve at http://localhost:${port}`);
 });

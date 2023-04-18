@@ -95,6 +95,7 @@ export default function ProfileScreen() {
         <Form.Group className="mb-3" controlId="password">
           <Form.Label className='universal-text-color'>Confirm Password</Form.Label>
           <Form.Control
+            value={confirmPassword}
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
