@@ -35,12 +35,17 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
+<<<<<<< HEAD
 import Shopscreen from './screens/Shopscreen';
 import Col from 'react-bootstrap/esm/Col';
 import Row from 'react-bootstrap/esm/Row';
 
 
 
+=======
+import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen';
+>>>>>>> ffb66563a122c0a8a2990933e02da216882da54f
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -215,7 +220,7 @@ function App() {
             {categories.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
-                  to={`/search?category=${category}`}
+                  to={{ pathname: '/search', search: `category=${category}` }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
                   <Nav.Link className='categLink'>{category.toUpperCase()}
@@ -240,6 +245,15 @@ function App() {
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
               <Route path='/shop' element={<Shopscreen />}/>
+              <Route
+                path="/forget-password"
+                element={<ForgetPasswordScreen />}
+              />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPasswordScreen />}
+              />
+
               <Route
                 path="/profile"
                 element={
