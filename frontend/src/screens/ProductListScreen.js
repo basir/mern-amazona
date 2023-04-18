@@ -27,21 +27,14 @@ const reducer = (state, action) => {
     case 'CREATE_REQUEST':
       return { ...state, loadingCreate: true };
     case 'CREATE_SUCCESS':
-      return {
-        ...state,
-        loadingCreate: false,
-      };
+      return {...state, loadingCreate: false};
     case 'CREATE_FAIL':
       return { ...state, loadingCreate: false };
 
     case 'DELETE_REQUEST':
       return { ...state, loadingDelete: true, successDelete: false };
     case 'DELETE_SUCCESS':
-      return {
-        ...state,
-        loadingDelete: false,
-        successDelete: true,
-      };
+      return {...state, loadingDelete: false, successDelete: true};
     case 'DELETE_FAIL':
       return { ...state, loadingDelete: false, successDelete: false };
 

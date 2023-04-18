@@ -7,11 +7,11 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import Carousel from 'react-bootstrap/Carousel'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import shuffle from 'lodash'
-import banner2 from '../images/banner2.png'
+import Card from 'react-bootstrap/esm/Card'
 import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+//import MessageBox from '../components/MessageBox';
 import Container from 'react-bootstrap/esm/Container';
+import { getRandomProducts } from '../utils';
 // import data from '../data';
 
 const reducer = (state, action) => {
@@ -42,8 +42,8 @@ export default function HomeScreen() {
       try {
         const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
-      } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+      } catch (error) {
+        dispatch({ type: 'FETCH_FAIL', payload: error.message });
       }
 
       // setProducts(result.data);
@@ -61,13 +61,17 @@ export default function HomeScreen() {
 
         <h1 className='featured'>Featured This Week</h1>
 
+       <Card className='g-4'>
+        <Card.Body>
         <Carousel variant='dark' indicators={false}>
-          {products.map((product)=>(
+          {products && getRandomProducts(products, 12).map((product)=>(
             <Carousel.Item className='slide'  key={product.slug} >
               <Product product={product} Rating={undefined} />
             </Carousel.Item>
           ))}
       </Carousel>
+        </Card.Body>
+       </Card>
 
 
       <h1 className='featured d-flex justify-content-center'>For Your Eyes</h1>
@@ -80,7 +84,7 @@ export default function HomeScreen() {
           next={products.fetchMoreData}
           >
             <Row>
-            {products.map((product) => (
+            {products && getRandomProducts(products, 12).map((product) => (
               <Col key={product.slug} sm={6} md={4} lg={4} className="mb-3">
                 <Product product={product}></Product>
               </Col>

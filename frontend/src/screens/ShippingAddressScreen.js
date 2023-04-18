@@ -9,18 +9,19 @@ import CheckoutSteps from '../components/CheckoutSteps';
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  
   const {
     fullBox,
     userInfo,
     cart: { shippingAddress },
   } = state;
+
   const [fullName, setFullName] = useState(shippingAddress.fullName || '');
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
   const [phone, setPhone] = useState(shippingAddress.phone || '');
-  const [postalCode, setPostalCode] = useState(
-    shippingAddress.postalCode || ''
-  );
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/shipping');

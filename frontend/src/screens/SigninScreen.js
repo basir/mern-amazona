@@ -20,6 +20,8 @@ export default function SigninScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
+  
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -47,6 +49,7 @@ export default function SigninScreen() {
         <title>Sign In</title>
       </Helmet>
       <h1 className="my-3">Sign In</h1>
+      
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label className='universal-text-color'>Email</Form.Label>

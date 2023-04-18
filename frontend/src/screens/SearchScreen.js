@@ -49,7 +49,7 @@ const prices = [
   },
 ];
 
-export const ratings = [
+export const rating = [
   {
     name: '4stars & up',
     rating: 4,

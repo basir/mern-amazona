@@ -126,13 +126,16 @@ function App() {
                       </Badge>
                     )}
                   </Link>
-                  <Link  className='nav-link' to='#' onClick={(e)=>{window.location.href='mailto:info@binarymall.net'; e.preventDefault()}}>
+                  <Link  className='nav-link' to='#' 
+                  onClick={(e)=>{window.location.href='mailto:info@binarymall.net'; 
+                  e.preventDefault()}}>
                     Support
                   </Link>
-                  <Link  className='nav-link' to='#' onClick={(e) =>{window.location.href='tel:+256756613319'}}>
+                  <Link  className='nav-link' to='#' 
+                  onClick={(e) =>{window.location.href='tel:+256756613319'}}>
                     Hotline
                   </Link>
-                  {/**<Link  className='nav-link' to='/'>
+                  { /**<Link  className='nav-link' to='/'>
                     Custom
                   </Link>
                   <NavDropdown title='Countries' id='basic-nav-dropdown'>
@@ -148,7 +151,7 @@ function App() {
                    <LinkContainer to='/search'>
                     <NavDropdown.Item>Europe</NavDropdown.Item>
                    </LinkContainer>
-                    </NavDropdown>**/}
+                    </NavDropdown>**/ }
                   {userInfo ? (
                     
                     <NavDropdown title={ userInfo.name} id="basic-nav-dropdown">
@@ -215,7 +218,8 @@ function App() {
                   to={`/search?category=${category}`}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link className='categLink'>{category.toUpperCase()}</Nav.Link>
+                  <Nav.Link className='categLink'>{category.toUpperCase()}
+                  </Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
