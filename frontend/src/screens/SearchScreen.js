@@ -71,7 +71,10 @@ export const rating = [
   },
 ];
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 38913db1ce57f74668d97ad59fd8c2faf91ed883
 
 export default function SearchScreen() {
   const navigate = useNavigate();

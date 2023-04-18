@@ -2,6 +2,7 @@
   "name": "biinarii",
   "version": "1.0.0",
   "description": "binary mall",
+  "proxy": "http://localhost:6000",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

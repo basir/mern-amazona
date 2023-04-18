@@ -11,7 +11,9 @@ function Product(props) {
   const { product } = props;
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart: { cartItems } } = state;
+  const {
+    cart: { cartItems },
+  } = state;
 
   const addToCartHandler = async (item) => {
     toast.success('item added to cart')

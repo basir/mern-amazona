@@ -67,7 +67,7 @@ export default function ProductEditScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST' });
+        dispatch({ type: 'FETCH_REQUEST'});
         const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
         setSlug(data.slug);
@@ -111,9 +111,7 @@ export default function ProductEditScreen() {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-      dispatch({
-        type: 'UPDATE_SUCCESS',
-      });
+      dispatch({type: 'UPDATE_SUCCESS',});
       toast.success('Product updated successfully');
       navigate('/admin/products');
     } catch (err) {
