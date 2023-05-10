@@ -1,8 +1,7 @@
 {
-  "name": "biinarii",
+  "name": "ugyard",
   "version": "1.0.0",
-  "description": "binary mall",
-  "proxy": "http://localhost:6000",
+  "description": "ugyard",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/octa230/chateau/issues"
   },
-  "homepage": "https://github.com/octa230/chateau#readme",
+  "homepage": "https://ugyard.com/",
   "dependencies": {
     "client": "^0.0.1"
   }

@@ -1,9 +1,9 @@
 {
-  "name": "frontend",
-  "proxy": "http://localhost:8000",
+  "name": "ug-yard",
   "version": "0.1.0",
   "allowdHosts": "all",
   "private": true,
+  "homepage": "https://ugyard.com",
   "dependencies": {
     "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.6",
