@@ -165,7 +165,7 @@ function ProductScreen() {
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>
-              Description:
+              Özellikler:
               <p>{product.description}</p>
             </ListGroup.Item>
           </ListGroup>
@@ -176,18 +176,18 @@ function ProductScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>Fiyat:</Col>
+                    <Col>TL{product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col>
+                    <Col>Durum:</Col>
                     <Col>
                       {product.countInStock > 0 ? (
-                        <Badge bg="success">In Stock</Badge>
+                        <Badge bg="success">Stokta</Badge>
                       ) : (
-                        <Badge bg="danger">Unavailable</Badge>
+                        <Badge bg="danger">Mevcut Değil</Badge>
                       )}
                     </Col>
                   </Row>
@@ -197,7 +197,7 @@ function ProductScreen() {
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
-                        Add to Cart
+                        Sepete Ekle
                       </Button>
                     </div>
                   </ListGroup.Item>
@@ -211,7 +211,7 @@ function ProductScreen() {
         <h2 ref={reviewsRef}>Reviews</h2>
         <div className="mb-3">
           {product.reviews.length === 0 && (
-            <MessageBox>There is no review</MessageBox>
+            <MessageBox>Herhangi bir inceleme bulunmamaktadır.</MessageBox>
           )}
         </div>
         <ListGroup>
@@ -229,7 +229,7 @@ function ProductScreen() {
             <form onSubmit={submitHandler}>
               <h2>Write a customer review</h2>
               <Form.Group className="mb-3" controlId="rating">
-                <Form.Label>Rating</Form.Label>
+                <Form.Label>Puanlama</Form.Label>
                 <Form.Select
                   aria-label="Rating"
                   value={rating}
@@ -258,18 +258,18 @@ function ProductScreen() {
 
               <div className="mb-3">
                 <Button disabled={loadingCreateReview} type="submit">
-                  Submit
+                  Gönder
                 </Button>
                 {loadingCreateReview && <LoadingBox></LoadingBox>}
               </div>
             </form>
           ) : (
             <MessageBox>
-              Please{' '}
+              Lütfen{' '}
               <Link to={`/signin?redirect=/product/${product.slug}`}>
-                Sign In
+                Giriş yap
               </Link>{' '}
-              to write a review
+             Yorum yazmak için
             </MessageBox>
           )}
         </div>

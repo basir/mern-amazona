@@ -103,12 +103,12 @@ export default function OrderListScreen() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
+              <th>Kullanıcı</th>
+              <th>Tarih</th>
+              <th>Toplam</th>
+              <th>Ödeme</th>
+              <th>Teslimat</th>
+              <th>Hareketler</th>
             </tr>
           </thead>
           <tbody>
@@ -141,7 +141,7 @@ export default function OrderListScreen() {
                     variant="light"
                     onClick={() => deleteHandler(order)}
                   >
-                    Delete
+                    Sil
                   </Button>
                 </td>
               </tr>

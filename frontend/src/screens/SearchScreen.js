@@ -132,11 +132,11 @@ export default function SearchScreen() {
   return (
     <div>
       <Helmet>
-        <title>Search Products</title>
+        <title>Ürünleri Ara</title>
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <h3>Bölüm</h3>
           <div>
             <ul>
               <li>
@@ -144,7 +144,7 @@ export default function SearchScreen() {
                   className={'all' === category ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
                 >
-                  Any
+                  Tümü
                 </Link>
               </li>
               {categories.map((c) => (
@@ -160,14 +160,14 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Price</h3>
+            <h3>Fiyat</h3>
             <ul>
               <li>
                 <Link
                   className={'all' === price ? 'text-bold' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
-                  Any
+                  Tümü
                 </Link>
               </li>
               {prices.map((p) => (
@@ -183,7 +183,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Ortalama kullanıcı Değerlendirmesi</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -250,7 +250,7 @@ export default function SearchScreen() {
                 </Col>
               </Row>
               {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
+                <MessageBox>Ürün Bulunamadı</MessageBox>
               )}
 
               <Row>

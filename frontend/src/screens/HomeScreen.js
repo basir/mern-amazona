@@ -6,7 +6,7 @@ import Product from "../components/Product";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
-// import data from '../data';
+import data from '../data';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,6 +36,7 @@ function HomeScreen() {
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
+        console.log("Products can not get");
       }
 
       // setProducts(result.data);
@@ -45,9 +46,9 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Amazona</title>
+        <title>Amazon</title>
       </Helmet>
-      <h1>Featured Products</h1>
+      <h1>Tüm Ürünler</h1>
       <div className="products">
         {loading ? (
           <LoadingBox />

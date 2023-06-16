@@ -92,9 +92,9 @@ export default function UserEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit User ${userId}</title>
+        <title>Kullanıcı Düzenle ${userId}</title>
       </Helmet>
-      <h1>Edit User {userId}</h1>
+      <h1>Kullanıcı Düzenle {userId}</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -103,7 +103,7 @@ export default function UserEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>isim</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -131,7 +131,7 @@ export default function UserEditScreen() {
 
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
-              Update
+              Güncelle
             </Button>
             {loadingUpdate && <LoadingBox></LoadingBox>}
           </div>
