@@ -148,19 +148,19 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Öğeler</Col>
-                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
+                    <Col>{cart.itemsPrice.toFixed(2)}TL</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Kargo</Col>
-                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                    <Col>{cart.shippingPrice.toFixed(2)}TL</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Vergi</Col>
-                    <Col>${cart.taxPrice.toFixed(2)}</Col>
+                    <Col>{cart.taxPrice.toFixed(2)}TL</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -169,7 +169,7 @@ export default function PlaceOrderScreen() {
                       <strong> Sipariş Toplamı</strong>
                     </Col>
                     <Col>
-                      <strong>${cart.totalPrice.toFixed(2)}</strong>
+                      <strong>{cart.totalPrice.toFixed(2)}TL</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

@@ -36,37 +36,37 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $50',
-    value: '1-50',
+    name: '0TL - 300TL',
+    value: '1-300',
   },
   {
-    name: '$51 to $200',
-    value: '51-200',
+    name: '301TL - 700TL',
+    value: '301-700',
   },
   {
-    name: '$201 to $1000',
-    value: '201-1000',
+    name: '701TL to 4000TL',
+    value: '700-4000',
   },
 ];
 
 export const ratings = [
   {
-    name: '4stars & up',
+    name: '4 Yıldız ve üzeri',
     rating: 4,
   },
 
   {
-    name: '3stars & up',
+    name: '3 Yıldız ve üzeri',
     rating: 3,
   },
 
   {
-    name: '2stars & up',
+    name: '2 Yıldız ve üzeri',
     rating: 2,
   },
 
   {
-    name: '1stars & up',
+    name: '1 Yıldız ve üzeri',
     rating: 1,
   },
 ];
@@ -268,7 +268,7 @@ export default function SearchScreen() {
                     className="mx-1"
                     to={{
                       pathname: '/search',
-                      seacrh: getFilterUrl({ page: x + 1 }, true),
+                      search: getFilterUrl({ page: x + 1 }, true),
                     }}
                   >
                     <Button
