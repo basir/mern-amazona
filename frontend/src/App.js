@@ -75,9 +75,12 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
-        <ToastContainer position="bottom-center" limit={1}  />
+        <ToastContainer position="top-center" limit={1}  />
         <header>
-          <Navbar  expand="lg" style={{backgroundColor:"#0b3954", height:"90px"}}>
+        <Navbar expand="lg" style={{backgroundColor:"#0b3954", height:"90px", position: 'sticky', top: '0' , zIndex:"999"}}>
+
+
+      
             <Container style={{backgroundColor:"#0b3954"}}>
               <Button
                 variant="dark"
@@ -102,9 +105,9 @@ function App() {
 
 
 
-                <Nav className="me-auto  w-100  justify-content-end">
-                  <Link to="/cart" className="nav-link">
-                    Sepet
+                <Nav className="me-auto  w-100  justify-content-end" >
+                  <Link style={{color:"white", fontStyle:"normal"}} to="/cart" className="nav-link">
+                    Sepet&nbsp;
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -116,7 +119,7 @@ function App() {
                   
              
                   {userInfo ? (
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown style={{zIndex:"999"}} title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>Profil</NavDropdown.Item>
                       </LinkContainer>
@@ -125,20 +128,22 @@ function App() {
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <Link
+                       
                         className="dropdown-item"
                         to="#signout"
                         onClick={signoutHandler}
+                        
                       >
                         Çıkış
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link className="nav-link" to="/signin">
+                    <Link  style={{color:"white", fontStyle:"normal"}}  className="nav-link" to="/signin">
                       Giriş
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin && (
-                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                    <NavDropdown  title="Admin" id="admin-nav-dropdown">
                       <LinkContainer to="/admin/dashboard">
                         <NavDropdown.Item>Panel</NavDropdown.Item>
                       </LinkContainer>

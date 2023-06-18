@@ -64,6 +64,10 @@ main {
   color: #f08000;
 }
 
+.navbar{
+  position: sticky;
+  top: 0;
+}
 /* sidebar */
 .navbar-brand {
   font-weight: bold;
