@@ -136,30 +136,10 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Bölüm</h3>
+          <h3>Filtrele</h3>
           <div>
-            <ul>
-              <li>
-                <Link
-                  style={{textDecoration:"none", color:"#032b43", fontWeight:'bold'}}
-                  className={'all' === category ? 'text-bold' : ''}
-                  to={getFilterUrl({ category: 'all' })}
-                >
-                  Tümü
-                </Link>
-              </li>
-              {categories.map((c) => (
-                <li key={c}>
-                  <Link
-                    style={{textDecoration:"none", color:"#032b43", fontWeight:'bold'}}
-                    className={c === category ? 'text-bold' : ''}
-                    to={getFilterUrl({ category: c })}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+           
+        
           </div>
           <div>
             <h3>Fiyat</h3>

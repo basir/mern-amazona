@@ -105,7 +105,7 @@ function App() {
 
 
 
-                <Nav className="me-auto  w-100  justify-content-end" >
+                <Nav className="me-auto  w-100  justify-content-end" style={{color:"white"}} >
                   <Link style={{color:"white", fontStyle:"normal"}} to="/cart" className="nav-link">
                     Sepet&nbsp;
                     {cart.cartItems.length > 0 && (
@@ -119,7 +119,8 @@ function App() {
                   
              
                   {userInfo ? (
-                    <NavDropdown style={{zIndex:"999"}} title={userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown style={{zIndex:"999"}} title={<span style={{color: 'white', fontStyle: 'normal'}}>{userInfo.name}</span>} id="basic-nav-dropdown">
+
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>Profil</NavDropdown.Item>
                       </LinkContainer>
@@ -143,7 +144,8 @@ function App() {
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin && (
-                    <NavDropdown  title="Admin" id="admin-nav-dropdown">
+                  <NavDropdown  title={<span style={{color: 'white', fontStyle: 'normal'}}>Admin</span>} id="admin-nav-dropdown">
+
                       <LinkContainer to="/admin/dashboard">
                         <NavDropdown.Item>Panel</NavDropdown.Item>
                       </LinkContainer>
@@ -172,22 +174,23 @@ function App() {
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
-          <Nav className="flex-column text-white w-100 p-5" >
-            <Nav.Item style={{color:"#ffffff", fontStyle:"normal"}}>
-              <strong>Kategoriler</strong>
-            </Nav.Item>
-            {categories.map((category) => (
-              <Nav.Item style={{color:"#ffffff"}} key={category}>
-                <LinkContainer 
-                  to={{ pathname: '/search', search: `category=${category}` }}
-                  onClick={() => setSidebarIsOpen(false)}
-                  style={{color:"#ffffff"}}
-                >
-                  <Nav.Link >{category}</Nav.Link>
-                </LinkContainer>
-              </Nav.Item>
-            ))}
-          </Nav>
+     <Nav className="flex-column text-white w-100 p-5"  style={{position: "sticky", top:0}} >
+    <Nav.Item style={{color:"#ffffff", fontStyle:"normal"}}>
+        <strong>Kategoriler</strong>
+    </Nav.Item>
+    {categories.map((category) => (
+        <Nav.Item style={{color:"#ffffff"}} key={category}>
+            <LinkContainer 
+                to={{ pathname: '/search', search: `category=${category}` }}
+                onClick={() => setSidebarIsOpen(false)}
+                style={{color:"#ffffff"}}
+            >
+                <Nav.Link >{category}</Nav.Link>
+            </LinkContainer>
+        </Nav.Item>
+    ))}
+</Nav>
+
         </div>
         <main style={{marginTop:"125px"}}>
           <Container className="mt-3">
