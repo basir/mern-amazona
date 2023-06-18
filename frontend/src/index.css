@@ -14,10 +14,15 @@ body {
 main {
   flex: 1;
 }
-.btn-primary,
-.btn-outline-primary {
+.btn-primary{
   background-color: #f4978e;
   color: #000000;
+}
+.btn-outline-primary {
+  background-color: #726d6d;
+  color: #000000;
+  
+  
 }
 .products {
   display: flex;

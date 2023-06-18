@@ -77,7 +77,7 @@ function App() {
       >
         <ToastContainer position="top-center" limit={1}  />
         <header>
-        <Navbar expand="lg" style={{backgroundColor:"#0b3954", height:"90px", position: 'sticky', top: '0' , zIndex:"999"}}>
+        <Navbar className="w-100" expand="lg" style={{backgroundColor:"#0b3954", height:"90px", zIndex:"999", position: "fixed", top: "0" }}>
 
 
       
@@ -96,12 +96,12 @@ function App() {
                 <SearchBox />
 
 
-
+                <Nav className="me-auto  w-100  justify-content-end"  >
                 <LinkContainer style={{ fontSize: "30px", fontStyle: "normal", color: "#FFFF" }} to="/">
                       <Navbar.Brand>AMAZON</Navbar.Brand>
                 </LinkContainer>
-
-
+                
+                </Nav>
 
 
 
@@ -189,7 +189,7 @@ function App() {
             ))}
           </Nav>
         </div>
-        <main>
+        <main style={{marginTop:"125px"}}>
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
