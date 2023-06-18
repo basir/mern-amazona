@@ -44,12 +44,12 @@ function HomeScreen() {
     fetchData();
   }, []);
   return (
-    <div>
+    <div >
       <Helmet>
         <title>Amazon</title>
       </Helmet>
       <h1>Tüm Ürünler</h1>
-      <div className="products">
+      <div className="products" style={{textDecoration:"none", color:"#311847", fontStyle:"normal"}}>
         {loading ? (
           <LoadingBox />
         ) : error ? (

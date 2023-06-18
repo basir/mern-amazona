@@ -226,8 +226,10 @@ export default function SearchScreen() {
                     rating !== 'all' ||
                     price !== 'all' ? (
                       <Button
+                      id='searchButton'
                         variant="light"
                         onClick={() => navigate('/search')}
+                        
                       >
                         <i className="fas fa-times-circle"></i>
                       </Button>

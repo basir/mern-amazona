@@ -63,7 +63,7 @@ function App() {
     fetchCategories();
   }, []);
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <div
         className={
           sidebarIsOpen
@@ -75,10 +75,10 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
-        <ToastContainer position="bottom-center" limit={1} />
+        <ToastContainer position="bottom-center" limit={1}  />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
+          <Navbar  expand="lg" style={{backgroundColor:"#0b3954", height:"90px"}}>
+            <Container style={{backgroundColor:"#0b3954"}}>
               <Button
                 variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
@@ -86,12 +86,22 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <LinkContainer to="/">
-                <Navbar.Brand>Amazon</Navbar.Brand>
-              </LinkContainer>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+
+              <Navbar.Toggle  ria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
+
+
+
+                <LinkContainer style={{ fontSize: "30px", fontStyle: "normal", color: "#FFFF" }} to="/">
+                      <Navbar.Brand>AMAZON</Navbar.Brand>
+                </LinkContainer>
+
+
+
+
+
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
                     Sepet
@@ -101,6 +111,10 @@ function App() {
                       </Badge>
                     )}
                   </Link>
+
+
+                  
+             
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
@@ -140,6 +154,8 @@ function App() {
                     </NavDropdown>
                   )}
                 </Nav>
+
+               
               </Navbar.Collapse>
             </Container>
           </Navbar>
@@ -151,17 +167,18 @@ function App() {
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
-          <Nav className="flex-column text-white w-100 p-2">
-            <Nav.Item>
+          <Nav className="flex-column text-white w-100 p-5" >
+            <Nav.Item style={{color:"#ffffff", fontStyle:"normal"}}>
               <strong>Kategoriler</strong>
             </Nav.Item>
             {categories.map((category) => (
-              <Nav.Item key={category}>
-                <LinkContainer
+              <Nav.Item style={{color:"#ffffff"}} key={category}>
+                <LinkContainer 
                   to={{ pathname: '/search', search: `category=${category}` }}
                   onClick={() => setSidebarIsOpen(false)}
+                  style={{color:"#ffffff"}}
                 >
-                  <Nav.Link>{category}</Nav.Link>
+                  <Nav.Link >{category}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
