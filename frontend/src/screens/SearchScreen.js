@@ -200,7 +200,7 @@ export default function SearchScreen() {
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
                   <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
+                    {countProducts === 0 ? 'No' : countProducts} Sonuçlar
                     {query !== 'all' && ' : ' + query}
                     {category !== 'all' && ' : ' + category}
                     {price !== 'all' && ' : Price ' + price}
@@ -221,17 +221,17 @@ export default function SearchScreen() {
                   </div>
                 </Col>
                 <Col className="text-end">
-                  Sort by{' '}
+                  Sırala{' '}
                   <select
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
                     }}
                   >
-                    <option value="newest">Newest Arrivals</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="toprated">Avg. Customer Reviews</option>
+                    <option value="newest">En Yeniler</option>
+                    <option value="lowest">Fiyat: En düşükten yükseğe</option>
+                    <option value="highest">Fiyat: Yüksekten Düşüğe</option>
+                    <option value="toprated">Ortalama. Müşteri Değerlendirmesi</option>
                   </select>
                 </Col>
               </Row>

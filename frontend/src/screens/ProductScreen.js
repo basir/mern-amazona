@@ -208,7 +208,7 @@ function ProductScreen() {
         </Col>
       </Row>
       <div className="my-3">
-        <h2 ref={reviewsRef}>Reviews</h2>
+        <h2 ref={reviewsRef}>Değerlendirmeler</h2>
         <div className="mb-3">
           {product.reviews.length === 0 && (
             <MessageBox>Herhangi bir inceleme bulunmamaktadır.</MessageBox>
@@ -227,7 +227,7 @@ function ProductScreen() {
         <div className="my-3">
           {userInfo ? (
             <form onSubmit={submitHandler}>
-              <h2>Write a customer review</h2>
+              <h2>Değerlendirme yap</h2>
               <Form.Group className="mb-3" controlId="rating">
                 <Form.Label>Puanlama</Form.Label>
                 <Form.Select
@@ -235,17 +235,17 @@ function ProductScreen() {
                   value={rating}
                   onChange={(e) => setRating(e.target.value)}
                 >
-                  <option value="">Select...</option>
-                  <option value="1">1- Poor</option>
-                  <option value="2">2- Fair</option>
-                  <option value="3">3- Good</option>
-                  <option value="4">4- Very good</option>
-                  <option value="5">5- Excelent</option>
+                  <option value="">Seç</option>
+                  <option value="1">1- Berbat</option>
+                  <option value="2">2- Kötü</option>
+                  <option value="3">3- İyi</option>
+                  <option value="4">4- Çok iyi</option>
+                  <option value="5">5- Mükemmel</option>
                 </Form.Select>
               </Form.Group>
               <FloatingLabel
                 controlId="floatingTextarea"
-                label="Comments"
+                label="Yorumlar"
                 className="mb-3"
               >
                 <Form.Control

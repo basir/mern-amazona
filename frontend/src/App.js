@@ -64,7 +64,7 @@ function App() {
   }, []);
   return (
     <BrowserRouter >
-      <div
+            <div
         className={
           sidebarIsOpen
             ? fullBox
@@ -75,6 +75,7 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
+
         <ToastContainer position="top-center" limit={1}  />
         <header>
         <Navbar className="w-100" expand="lg" style={{backgroundColor:"#0b3954", height:"90px", zIndex:"999", position: "fixed", top: "0" }}>
@@ -107,7 +108,7 @@ function App() {
 
                 <Nav className="me-auto  w-100  justify-content-end" style={{color:"white"}} >
                   <Link style={{color:"white", fontStyle:"normal"}} to="/cart" className="nav-link">
-                    Sepet&nbsp;
+                    <i className='fa fa-shopping-basket'></i>&nbsp;
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -301,9 +302,66 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer>
-          <div className="text-center">Tüm hakları saklıdır</div>
-        </footer>
+        <footer style={{ backgroundColor: "#0b3954", padding: "20px", marginTop: "auto", color:"white" }}>
+  <div className="container">
+    <div className="row">
+      <div className="col-md-4">
+        <h5>Kategoriler</h5>
+        <ul className="list-unstyled">
+          {/* Category links - Column 1 */}
+          {categories.slice(0, 5).map((category) => (
+            <li key={category}>
+              <a style={{color:"#bde0fe"}}  href={`/search?category=${category}`}>{category}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    
+      <div className="col-md-4">
+        <h5>&nbsp;</h5>
+        <ul className="list-unstyled">
+          {/* Category links - Column 2 */}
+          {categories.slice(5, 10).map((category) => (
+            <li key={category}>
+              <a  style={{color:"#bde0fe"}}  href={`/search?category=${category}`}>{category}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="col-md-4">
+        <h5>İletişim Bilgileri</h5>
+        <ul className="list-unstyled">
+          {/* Contact information */}
+          <li>Adres: İstanbul, Türkiye</li>
+          <li>Telefon: 123456789</li>
+          <li>E-posta: amazon@example.com</li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div className="text-center">
+      {/* Social media icons */}
+      <div className="social-icons" style={{color:"#bde0fe"}}>
+        <a href="#"><i className="fab fa-facebook"></i></a>
+        <a href="#"><i className="fab fa-twitter"></i></a>
+        <a href="#"><i className="fab fa-instagram"></i></a>
+        <a href="#"><i className="fab fa-pinterest"></i></a>
+      </div>
+      {/* Links for Sepet and Giriş/Çıkış */}
+      <ul className="list-inline">
+        <li className="list-inline-item">
+          <a style={{color:"#bde0fe"}} href="/cart">Sepet</a>
+        </li>
+        <li className="list-inline-item">
+          <a style={{color:"#bde0fe"}} href="/giris">Giriş</a> / <a style={{color:"#bde0fe"}} href="/cikis">Çıkış</a>
+        </li>
+      </ul>
+      <p>Tüm hakları saklıdır &copy; {new Date().getFullYear()}</p>
+    </div>
+  </div>
+</footer>
+
+
       </div>
     </BrowserRouter>
   );
