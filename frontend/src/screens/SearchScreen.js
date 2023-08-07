@@ -36,37 +36,37 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '$1 to $50',
-    value: '1-50',
+    name: '0TL - 300TL',
+    value: '1-300',
   },
   {
-    name: '$51 to $200',
-    value: '51-200',
+    name: '301TL - 700TL',
+    value: '301-700',
   },
   {
-    name: '$201 to $1000',
-    value: '201-1000',
+    name: '701TL to 4000TL',
+    value: '700-4000',
   },
 ];
 
 export const ratings = [
   {
-    name: '4stars & up',
+    name: '4 Yıldız ve üzeri',
     rating: 4,
   },
 
   {
-    name: '3stars & up',
+    name: '3 Yıldız ve üzeri',
     rating: 3,
   },
 
   {
-    name: '2stars & up',
+    name: '2 Yıldız ve üzeri',
     rating: 2,
   },
 
   {
-    name: '1stars & up',
+    name: '1 Yıldız ve üzeri',
     rating: 1,
   },
 ];
@@ -132,47 +132,31 @@ export default function SearchScreen() {
   return (
     <div>
       <Helmet>
-        <title>Search Products</title>
+        <title>Ürünleri Ara</title>
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Department</h3>
+          <h3>Filtrele</h3>
           <div>
-            <ul>
-              <li>
-                <Link
-                  className={'all' === category ? 'text-bold' : ''}
-                  to={getFilterUrl({ category: 'all' })}
-                >
-                  Any
-                </Link>
-              </li>
-              {categories.map((c) => (
-                <li key={c}>
-                  <Link
-                    className={c === category ? 'text-bold' : ''}
-                    to={getFilterUrl({ category: c })}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+           
+        
           </div>
           <div>
-            <h3>Price</h3>
+            <h3>Fiyat</h3>
             <ul>
               <li>
                 <Link
+                  style={{textDecoration:"none", color:"#032b43", fontWeight:'bold'}}
                   className={'all' === price ? 'text-bold' : ''}
                   to={getFilterUrl({ price: 'all' })}
                 >
-                  Any
+                  Tümü
                 </Link>
               </li>
               {prices.map((p) => (
                 <li key={p.value}>
                   <Link
+                    style={{textDecoration:"none", color:"#032b43", fontWeight:'bold'}}
                     to={getFilterUrl({ price: p.value })}
                     className={p.value === price ? 'text-bold' : ''}
                   >
@@ -183,7 +167,7 @@ export default function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Ortalama kullanıcı Değerlendirmesi</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>
@@ -216,7 +200,7 @@ export default function SearchScreen() {
               <Row className="justify-content-between mb-3">
                 <Col md={6}>
                   <div>
-                    {countProducts === 0 ? 'No' : countProducts} Results
+                    {countProducts === 0 ? 'No' : countProducts} Sonuçlar
                     {query !== 'all' && ' : ' + query}
                     {category !== 'all' && ' : ' + category}
                     {price !== 'all' && ' : Price ' + price}
@@ -226,8 +210,10 @@ export default function SearchScreen() {
                     rating !== 'all' ||
                     price !== 'all' ? (
                       <Button
+                      id='searchButton'
                         variant="light"
                         onClick={() => navigate('/search')}
+                        
                       >
                         <i className="fas fa-times-circle"></i>
                       </Button>
@@ -235,22 +221,22 @@ export default function SearchScreen() {
                   </div>
                 </Col>
                 <Col className="text-end">
-                  Sort by{' '}
+                  Sırala{' '}
                   <select
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }));
                     }}
                   >
-                    <option value="newest">Newest Arrivals</option>
-                    <option value="lowest">Price: Low to High</option>
-                    <option value="highest">Price: High to Low</option>
-                    <option value="toprated">Avg. Customer Reviews</option>
+                    <option value="newest">En Yeniler</option>
+                    <option value="lowest">Fiyat: En düşükten yükseğe</option>
+                    <option value="highest">Fiyat: Yüksekten Düşüğe</option>
+                    <option value="toprated">Ortalama. Müşteri Değerlendirmesi</option>
                   </select>
                 </Col>
               </Row>
               {products.length === 0 && (
-                <MessageBox>No Product Found</MessageBox>
+                <MessageBox>Ürün Bulunamadı</MessageBox>
               )}
 
               <Row>
@@ -268,7 +254,7 @@ export default function SearchScreen() {
                     className="mx-1"
                     to={{
                       pathname: '/search',
-                      seacrh: getFilterUrl({ page: x + 1 }, true),
+                      search: getFilterUrl({ page: x + 1 }, true),
                     }}
                   >
                     <Button

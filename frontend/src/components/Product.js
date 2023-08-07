@@ -33,18 +33,21 @@ function Product(props) {
       <Link to={`/product/${product.slug}`}>
         <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>
-      <Card.Body>
-        <Link to={`/product/${product.slug}`}>
-          <Card.Title>{product.name}</Card.Title>
+      <Card.Body >
+        <Link style={{textDecoration:"none"}} to={`/product/${product.slug}`}>
+        <Card.Title style={{color: '#0a100d'}}>
+  {product.name}
+</Card.Title>
+
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text>${product.price}</Card.Text>
+        <Card.Text>{product.price}TL</Card.Text>
         {product.countInStock === 0 ? (
           <Button variant="light" disabled>
-            Out of stock
+            Stokta yok
           </Button>
         ) : (
-          <Button onClick={() => addToCartHandler(product)}>Add to cart</Button>
+          <Button onClick={() => addToCartHandler(product)}>Sepete Ekle</Button>
         )}
       </Card.Body>
     </Card>

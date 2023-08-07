@@ -63,8 +63,8 @@ function App() {
     fetchCategories();
   }, []);
   return (
-    <BrowserRouter>
-      <div
+    <BrowserRouter >
+            <div
         className={
           sidebarIsOpen
             ? fullBox
@@ -75,10 +75,14 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
-        <ToastContainer position="bottom-center" limit={1} />
+
+        <ToastContainer position="top-center" limit={1}  />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
+        <Navbar className="w-100" expand="lg" style={{backgroundColor:"#0b3954", height:"90px", zIndex:"999", position: "fixed", top: "0" }}>
+
+
+      
+            <Container style={{backgroundColor:"#0b3954"}}>
               <Button
                 variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
@@ -86,60 +90,80 @@ function App() {
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <LinkContainer to="/">
-                <Navbar.Brand>amazona</Navbar.Brand>
-              </LinkContainer>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+
+              <Navbar.Toggle  ria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
-                <Nav className="me-auto  w-100  justify-content-end">
-                  <Link to="/cart" className="nav-link">
-                    Cart
+
+
+                <Nav className="me-auto  w-100  justify-content-end"  >
+                <LinkContainer style={{ fontSize: "30px", fontStyle: "normal", color: "#FFFF" }} to="/">
+                      <Navbar.Brand>AMAZON</Navbar.Brand>
+                </LinkContainer>
+                
+                </Nav>
+
+
+
+                <Nav className="me-auto  w-100  justify-content-end" style={{color:"white"}} >
+                  <Link style={{color:"white", fontStyle:"normal"}} to="/cart" className="nav-link">
+                    <i className='fa fa-shopping-basket'></i>&nbsp;
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
                   </Link>
+
+
+                  
+             
                   {userInfo ? (
-                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown style={{zIndex:"999"}} title={<span style={{color: 'white', fontStyle: 'normal'}}>{userInfo.name}</span>} id="basic-nav-dropdown">
+
                       <LinkContainer to="/profile">
-                        <NavDropdown.Item>User Profile</NavDropdown.Item>
+                        <NavDropdown.Item>Profil</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/orderhistory">
-                        <NavDropdown.Item>Order History</NavDropdown.Item>
+                        <NavDropdown.Item>Sipariş Geçmişi</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
                       <Link
+                       
                         className="dropdown-item"
                         to="#signout"
                         onClick={signoutHandler}
+                        
                       >
-                        Sign Out
+                        Çıkış
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link className="nav-link" to="/signin">
-                      Sign In
+                    <Link  style={{color:"white", fontStyle:"normal"}}  className="nav-link" to="/signin">
+                      Giriş
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin && (
-                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                  <NavDropdown  title={<span style={{color: 'white', fontStyle: 'normal'}}>Admin</span>} id="admin-nav-dropdown">
+
                       <LinkContainer to="/admin/dashboard">
-                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                        <NavDropdown.Item>Panel</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/products">
-                        <NavDropdown.Item>Products</NavDropdown.Item>
+                        <NavDropdown.Item>Ürünler</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/orders">
-                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                        <NavDropdown.Item>Siparişler</NavDropdown.Item>
                       </LinkContainer>
                       <LinkContainer to="/admin/users">
-                        <NavDropdown.Item>Users</NavDropdown.Item>
+                        <NavDropdown.Item>Kullanıcılar</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
                   )}
                 </Nav>
+
+               
               </Navbar.Collapse>
             </Container>
           </Navbar>
@@ -151,23 +175,25 @@ function App() {
               : 'side-navbar d-flex justify-content-between flex-wrap flex-column'
           }
         >
-          <Nav className="flex-column text-white w-100 p-2">
-            <Nav.Item>
-              <strong>Categories</strong>
-            </Nav.Item>
-            {categories.map((category) => (
-              <Nav.Item key={category}>
-                <LinkContainer
-                  to={{ pathname: '/search', search: `category=${category}` }}
-                  onClick={() => setSidebarIsOpen(false)}
-                >
-                  <Nav.Link>{category}</Nav.Link>
-                </LinkContainer>
-              </Nav.Item>
-            ))}
-          </Nav>
+     <Nav className="flex-column text-white w-100 p-5"  style={{position: "sticky", top:0}} >
+    <Nav.Item style={{color:"#ffffff", fontStyle:"normal"}}>
+        <strong>Kategoriler</strong>
+    </Nav.Item>
+    {categories.map((category) => (
+        <Nav.Item style={{color:"#ffffff"}} key={category}>
+            <LinkContainer 
+                to={{ pathname: '/search', search: `category=${category}` }}
+                onClick={() => setSidebarIsOpen(false)}
+                style={{color:"#ffffff"}}
+            >
+                <Nav.Link >{category}</Nav.Link>
+            </LinkContainer>
+        </Nav.Item>
+    ))}
+</Nav>
+
         </div>
-        <main>
+        <main style={{marginTop:"125px"}}>
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
@@ -276,9 +302,66 @@ function App() {
             </Routes>
           </Container>
         </main>
-        <footer>
-          <div className="text-center">All rights reserved</div>
-        </footer>
+        <footer style={{ backgroundColor: "#0b3954", padding: "20px", marginTop: "auto", color:"white" }}>
+  <div className="container">
+    <div className="row">
+      <div className="col-md-4">
+        <h5>Kategoriler</h5>
+        <ul className="list-unstyled">
+          {/* Category links - Column 1 */}
+          {categories.slice(0, 5).map((category) => (
+            <li key={category}>
+              <a style={{color:"#bde0fe"}}  href={`/search?category=${category}`}>{category}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    
+      <div className="col-md-4">
+        <h5>&nbsp;</h5>
+        <ul className="list-unstyled">
+          {/* Category links - Column 2 */}
+          {categories.slice(5, 10).map((category) => (
+            <li key={category}>
+              <a  style={{color:"#bde0fe"}}  href={`/search?category=${category}`}>{category}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="col-md-4">
+        <h5>İletişim Bilgileri</h5>
+        <ul className="list-unstyled">
+          {/* Contact information */}
+          <li>Adres: İstanbul, Türkiye</li>
+          <li>Telefon: 123456789</li>
+          <li>E-posta: amazon@example.com</li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div className="text-center">
+      {/* Social media icons */}
+      <div className="social-icons" style={{color:"#bde0fe"}}>
+        <a href="#"><i className="fab fa-facebook"></i></a>
+        <a href="#"><i className="fab fa-twitter"></i></a>
+        <a href="#"><i className="fab fa-instagram"></i></a>
+        <a href="#"><i className="fab fa-pinterest"></i></a>
+      </div>
+      {/* Links for Sepet and Giriş/Çıkış */}
+      <ul className="list-inline">
+        <li className="list-inline-item">
+          <a style={{color:"#bde0fe"}} href="/cart">Sepet</a>
+        </li>
+        <li className="list-inline-item">
+          <a style={{color:"#bde0fe"}} href="/giris">Giriş</a> / <a style={{color:"#bde0fe"}} href="/cikis">Çıkış</a>
+        </li>
+      </ul>
+      <p>Tüm hakları saklıdır &copy; {new Date().getFullYear()}</p>
+    </div>
+  </div>
+</footer>
+
+
       </div>
     </BrowserRouter>
   );

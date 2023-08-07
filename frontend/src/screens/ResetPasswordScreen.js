@@ -46,12 +46,12 @@ export default function ResetPasswordScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Reset Password</title>
+        <title>Parolayı Sıfırla</title>
       </Helmet>
-      <h1 className="my-3">Reset Password</h1>
+      <h1 className="my-3">Parolayı Sıfırla</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>New Password</Form.Label>
+          <Form.Label>Yeni Parola</Form.Label>
           <Form.Control
             type="password"
             required
@@ -59,7 +59,7 @@ export default function ResetPasswordScreen() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="confirmPassword">
-          <Form.Label>Confirm New Password</Form.Label>
+          <Form.Label>Yeni Parolayı Doğrula</Form.Label>
           <Form.Control
             type="password"
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -68,7 +68,7 @@ export default function ResetPasswordScreen() {
         </Form.Group>
 
         <div className="mb-3">
-          <Button type="submit">Reset Password</Button>
+          <Button type="submit">Parolayı Sıfırla</Button>
         </div>
       </Form>
     </Container>

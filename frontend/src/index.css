@@ -1,21 +1,28 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue';
+  font-style: italic;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-decoration: none;
 }
+
+
 .site-container {
   min-height: 100vh;
 }
 main {
   flex: 1;
 }
-.btn-primary,
-.btn-outline-primary {
-  background-color: #f0c040;
+.btn-primary{
+  background-color: #f4978e;
   color: #000000;
+}
+.btn-outline-primary {
+  background-color: #726d6d;
+  color: #000000;
+  
+  
 }
 .products {
   display: flex;
@@ -23,8 +30,13 @@ main {
   justify-content: center;
 }
 
+
+
+.a{
+  text-decoration: none;
+}
 .rating span {
-  color: #ffc000;
+  color: #d90429;
 }
 
 .product {
@@ -57,17 +69,23 @@ main {
   color: #f08000;
 }
 
+.navbar{
+  position: sticky;
+  top: 0;
+}
 /* sidebar */
 .navbar-brand {
   font-weight: bold;
+  background-color: #0b3954;
 }
 .side-navbar {
   width: 240px;
   height: 100%;
   position: absolute;
   left: -300px;
-  background-color: #100901;
+  background-color: #0b3954;
   transition: 0.5s;
+  
 }
 
 .site-container {

@@ -139,12 +139,12 @@ export default function ProductListScreen() {
     <div>
       <Row>
         <Col>
-          <h1>Products</h1>
+          <h1>Ürünler</h1>
         </Col>
         <Col className="col text-end">
           <div>
             <Button type="button" onClick={createHandler}>
-              Create Product
+              Ürün ekle
             </Button>
           </div>
         </Col>
@@ -163,11 +163,11 @@ export default function ProductListScreen() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th>ACTIONS</th>
+                <th>İsim</th>
+                <th>Fiyat</th>
+                <th>Kategori</th>
+                <th>Marka</th>
+                <th>Hareketler</th>
               </tr>
             </thead>
             <tbody>
@@ -184,7 +184,7 @@ export default function ProductListScreen() {
                       variant="light"
                       onClick={() => navigate(`/admin/product/${product._id}`)}
                     >
-                      Edit
+                      Düzenle
                     </Button>
                     &nbsp;
                     <Button
@@ -192,7 +192,7 @@ export default function ProductListScreen() {
                       variant="light"
                       onClick={() => deleteHandler(product)}
                     >
-                      Delete
+                      Sil
                     </Button>
                   </td>
                 </tr>
