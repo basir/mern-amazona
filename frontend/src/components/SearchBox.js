@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export default function SearchBox() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+  
   const submitHandler = (e) => {
     e.preventDefault();
     navigate(query ? `/search/?query=${query}` : '/search');

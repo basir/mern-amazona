@@ -1,4 +1,4 @@
-import { useEffect, useReducer} from 'react';
+import { useEffect, useReducer, useState} from 'react';
 import axios from 'axios';
 //import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
@@ -7,12 +7,13 @@ import Product from '../components/Product';
 import { Helmet } from 'react-helmet-async';
 import Carousel from 'react-bootstrap/Carousel'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import HomeScreenSlider from '../components/HomeScreenSlider';
 import Card from 'react-bootstrap/esm/Card'
 import LoadingBox from '../components/LoadingBox';
 //import MessageBox from '../components/MessageBox';
 import Container from 'react-bootstrap/esm/Container';
 import { getRandomProducts } from '../utils';
-// import data from '../data';
+
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +29,7 @@ const reducer = (state, action) => {
 };
 
 export default function HomeScreen() {
+
   const [{ loading, error, products }, dispatch] = useReducer((reducer), {
     products: [],
     loading: true,
@@ -52,23 +54,14 @@ export default function HomeScreen() {
     loading ? <LoadingBox /> :(
     <Container fluid>
       <Helmet>
-        <title>Biinarii</title>
+        <title>UG YARD</title>
       </Helmet>
      
 
         <h1 className='featured'>Featured This Week</h1>
+    <Row className='g-4'>
 
-       <Card className='g-4'>
-        <Card.Body>
-        <Carousel variant='dark' indicators={false}>
-          {products && getRandomProducts(products, 12).map((product)=>(
-            <Carousel.Item className='slide'  key={product.slug} >
-              <Product product={product} Rating={undefined} />
-            </Carousel.Item>
-          ))}
-      </Carousel>
-        </Card.Body>
-       </Card>
+    </Row>
 
 
       <h1 className='featured d-flex justify-content-center'>For Your Eyes</h1>
@@ -81,7 +74,7 @@ export default function HomeScreen() {
           next={products.fetchMoreData}
           >
             <Row>
-            {products && getRandomProducts(products, 12).map((product) => (
+            {products && products.map && products.map((product) => (
               <Col key={product.slug} sm={6} md={4} lg={4} className="mb-3">
                 <Product product={product}></Product>
               </Col>

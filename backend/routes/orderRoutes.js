@@ -158,7 +158,7 @@ orderRouter.put(
 
       res.send({ message: 'Order Paid', order: updatedOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({message: 'Order Not Found' });
     }
   })
 );

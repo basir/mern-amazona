@@ -12,6 +12,9 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 
+
+
+//state reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -64,6 +67,7 @@ export default function ProductEditScreen() {
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
 
+  //product details fetch 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -89,6 +93,8 @@ export default function ProductEditScreen() {
     fetchData();
   }, [productId]);
 
+
+  //product form submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -120,6 +126,8 @@ export default function ProductEditScreen() {
     }
   };
 
+  //photo upload handler
+
   const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -146,6 +154,8 @@ export default function ProductEditScreen() {
     }
   };
 
+  //photo file delete handler
+
   const deleteFileHandler = async (fileName, f) => {
     console.log(fileName, f);
     console.log(images);
@@ -154,6 +164,7 @@ export default function ProductEditScreen() {
     toast.success('Image removed successfully. click Update to apply it');
   };
   
+
   return (
     <Container className="small-container">
       <Helmet>
@@ -199,6 +210,7 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
+          
           <Form.Group className="mb-3" controlId="imageFile">
             <Form.Label className='productEditScreenText'>Upload Image</Form.Label>
             <Form.Control type="file" onChange={uploadFileHandler} />
@@ -219,14 +231,20 @@ export default function ProductEditScreen() {
               ))}
             </ListGroup>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="additionalImageFile">
+
+          <Form.Group className="mb-3" controlId="imageFile">
             <Form.Label className='productEditScreenText'>Upload Aditional Image</Form.Label>
             <Form.Control
               type="file"
-              onChange={(e) => uploadFileHandler(e, true)}
+              onChange={uploadFileHandler}
             />
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
+          <Form.Control  className='my-3'
+        type='file'
+        placeholder='photo(s)'
+        multiple
+        />
 
           <Form.Group className="mb-3" controlId="category">
             <Form.Label className='productEditScreenText'>Category</Form.Label>

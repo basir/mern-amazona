@@ -91,9 +91,7 @@ function App() {
         <ToastContainer position="top-center" limit={2} />
         <header className='header-nav'>
           <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
-      
-            <Container>
-              
+            <Container> 
               <Button
                 variant="light btn-lg"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
@@ -111,9 +109,7 @@ function App() {
           src={LOGO}/>
           </Link>
 
-          </Navbar.Brand>
-
-              
+          </Navbar.Brand>  
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
@@ -135,23 +131,6 @@ function App() {
                   onClick={(e) =>{window.location.href='tel:+256756613319'}}>
                     Hotline
                   </Link>
-                  { /**<Link  className='nav-link' to='/'>
-                    Custom
-                  </Link>
-                  <NavDropdown title='Countries' id='basic-nav-dropdown'>
-                   <LinkContainer to='/shop'>
-                    <NavDropdown.Item>United States</NavDropdown.Item>
-                   </LinkContainer>
-                   <LinkContainer to='/search'>
-                    <NavDropdown.Item>GCC</NavDropdown.Item>
-                   </LinkContainer>
-                   <LinkContainer to='/search'>
-                    <NavDropdown.Item>India</NavDropdown.Item>
-                   </LinkContainer>
-                   <LinkContainer to='/search'>
-                    <NavDropdown.Item>Europe</NavDropdown.Item>
-                   </LinkContainer>
-                    </NavDropdown>**/ }
                   {userInfo ? (
                     
                     <NavDropdown title={ userInfo.name} id="basic-nav-dropdown">
@@ -212,7 +191,7 @@ function App() {
             <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
-            {categories.map((category) => (
+            {categories && categories.map && categories.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
                   to={{ pathname: '/search', search: `category=${category}` }}
@@ -226,11 +205,6 @@ function App() {
           </Nav>
         </div>
         
-        {/*<LinkContainer to="/" className='logo-container'>
-                <Navbar.Brand>
-                  <img src={logo} className='logo'/>
-                </Navbar.Brand>
-            </LinkContainer>*/}
         <main>
           <Container className="mt-3">
             <Routes>
@@ -337,7 +311,7 @@ function App() {
                 }
               ></Route>
 
-              <Route path="/" element={<HomeScreen />} />
+              <Route path="/" element={<HomeScreen/>} />
             </Routes>
           </Container>
         </main>

@@ -13,21 +13,24 @@ export default function ShippingAddressScreen() {
   const {
     fullBox,
     userInfo,
-    cart: { shippingAddress },
+    cart: { shipping_address },
   } = state;
 
-  const [fullName, setFullName] = useState(shippingAddress.fullName || '');
-  const [address, setAddress] = useState(shippingAddress.address || '');
-  const [city, setCity] = useState(shippingAddress.city || '');
-  const [phone, setPhone] = useState(shippingAddress.phone || '');
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+  const [fullName, setFullName] = useState(shipping_address.fullName || '');
+  const [address, setAddress] = useState(shipping_address.address || '');
+  const [city, setCity] = useState(shipping_address.city || '');
+  const [phone, setPhone] = useState(shipping_address.phone || '');
+  const [postalCode, setPostalCode] = useState(shipping_address.postalCode || '');
+  const [country, setCountry] = useState(shipping_address.country || '');
+
 
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/shipping');
     }
   }, [userInfo, navigate]);
-  const [country, setCountry] = useState(shippingAddress.country || '');
+
+
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -39,11 +42,11 @@ export default function ShippingAddressScreen() {
         phone,
         postalCode,
         country,
-        location: shippingAddress.location,
+        location: shipping_address.location,
       },
     });
     localStorage.setItem(
-      'shippingAddress',
+      'shipping_address',
       JSON.stringify({
         fullName,
         address,
@@ -51,7 +54,7 @@ export default function ShippingAddressScreen() {
         phone,
         postalCode,
         country,
-        location: shippingAddress.location,
+        location: shipping_address.location,
       })
     );
     navigate('/payment');
@@ -128,10 +131,10 @@ export default function ShippingAddressScreen() {
             >
               Choose Location On Map
             </Button>
-            {shippingAddress.location && shippingAddress.location.lat ? (
+            {shipping_address.location && shipping_address.location.lat ? (
               <div>
-                LAT: {shippingAddress.location.lat}
-                LNG:{shippingAddress.location.lng}
+                LAT: {shipping_address.location.lat}
+                LNG:{shipping_address.location.lng}
               </div>
             ) : (
               <div className='universal-text-color'>No location</div>
