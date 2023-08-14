@@ -6,7 +6,6 @@ import ProductScreen from './screens/ProductScreen';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import Nav from 'react-bootstrap/Nav';
-import LOGO from './images/binarii.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -105,8 +104,9 @@ function App() {
           className='brand-fluid d-inline-block position-relative'
           width={200}
           height={90}
+          src=''
           alt={'logo'}
-          src={LOGO}/>
+          />
           </Link>
 
           </Navbar.Brand>  
