@@ -13,15 +13,15 @@ export default function ShippingAddressScreen() {
   const {
     fullBox,
     userInfo,
-    cart: { shipping_address },
+    cart: { shippingAddress },
   } = state;
 
-  const [fullName, setFullName] = useState(shipping_address.fullName || '');
-  const [address, setAddress] = useState(shipping_address.address || '');
-  const [city, setCity] = useState(shipping_address.city || '');
-  const [phone, setPhone] = useState(shipping_address.phone || '');
-  const [postalCode, setPostalCode] = useState(shipping_address.postalCode || '');
-  const [country, setCountry] = useState(shipping_address.country || '');
+  const [fullName, setFullName] = useState(shippingAddress.fullName || '');
+  const [address, setAddress] = useState(shippingAddress.address || '');
+  const [city, setCity] = useState(shippingAddress.city || '');
+  const [phone, setPhone] = useState(shippingAddress.phone || '');
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+  const [country, setCountry] = useState(shippingAddress.country || '');
 
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function ShippingAddressScreen() {
         phone,
         postalCode,
         country,
-        location: shipping_address.location,
+        location: shippingAddress.location,
       },
     });
     localStorage.setItem(
@@ -54,7 +54,7 @@ export default function ShippingAddressScreen() {
         phone,
         postalCode,
         country,
-        location: shipping_address.location,
+        location: shippingAddress.location,
       })
     );
     navigate('/payment');
@@ -131,10 +131,10 @@ export default function ShippingAddressScreen() {
             >
               Choose Location On Map
             </Button>
-            {shipping_address.location && shipping_address.location.lat ? (
+            {shippingAddress.location && shippingAddress.location.lat ? (
               <div>
-                LAT: {shipping_address.location.lat}
-                LNG:{shipping_address.location.lng}
+                LAT: {shippingAddress.location.lat}
+                LNG:{shippingAddress.location.lng}
               </div>
             ) : (
               <div className='universal-text-color'>No location</div>
