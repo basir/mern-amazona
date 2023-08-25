@@ -10,6 +10,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext, useEffect, useState } from 'react';
+import logo from './images/logo.png'
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -101,10 +102,10 @@ function App() {
           <Navbar.Brand>
           <Link to={'/'}>
           <img
-          className='brand-fluid d-inline-block position-relative'
+          className='brand-fluid d-inline position-relative'
           width={200}
-          height={90}
-          src=''
+          height={120}
+          src={logo}
           alt={'logo'}
           />
           </Link>
