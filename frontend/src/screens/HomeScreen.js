@@ -56,10 +56,10 @@ export default function HomeScreen() {
       </Helmet>
      
 
-      <h1 className='featured'>Featured This Week</h1>
+  {/*     <h1 className='featured'>Featured This Week</h1>
         <Slider products={products}/>
 
-
+ */}
       <h1 className='featured d-flex justify-content-center'>For Your Eyes</h1>
 
       <div className="products">
