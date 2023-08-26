@@ -322,10 +322,10 @@ function App() {
           <Col sm={6} md={4} lg={3}>
             <h5>Contact Us</h5>
             <ul className='list-group'> 
-                <li>Email: <span>info@binarymall.net</span></li>
+                <li>Email: <span>sales@ugyard.com</span></li>
                 <li>Phone: <span>+256782144414</span></li>
                 <li>Phone: <span>+256701583150</span></li>
-                <li>Address: <span>Namungoona Nakibinge Road next to<br/>Metropolitan University</span></li>
+                <li>Address: <span>coming soon<br/>coming soon</span></li>
                 <li>Operating: <span>Mon - Sun</span></li>
                 <li>Hours: <span>24(GMT+3) </span></li>
             </ul>

@@ -262,5 +262,13 @@ td{
   min-height: 400px;
   margin: 4px;
   -webkit-perspective: 1000px;
-          perspective: 1000px;
+   perspective: 1000px;
+}
+.slider-item{
+  padding: 0 10px; /* Add spacing between cards */
+}
+.slider{
+  background-color: aliceblue;
+  padding: 12px
+
 }
