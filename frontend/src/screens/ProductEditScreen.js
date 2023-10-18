@@ -60,24 +60,33 @@ export default function ProductEditScreen() {
   const [image, setImage] = useState('');
   const [images, setImages] = useState([]);
   const [category, setCategory] = useState('');
-  const [countInStock, setCountInStock] = useState('');
+  const [inStock, setinStock] = useState('');
   const [brand, setBrand] = useState('');
+  const [featured, setFeatured]= useState(false)
+  const [accessories, setAccessories] = useState([])
   const [description, setDescription] = useState('');
+
+  const [names, setNames]= useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/products/${productId}`);
+        const results  = await axios.get('/api/accessories/names')
         setName(data.name);
         setSlug(data.slug);
         setPrice(data.price);
         setImage(data.image);
         setImages(data.images);
         setCategory(data.category);
-        setCountInStock(data.countInStock);
+        setinStock(data.inStock);
+        //setAccessories(data.accessories)
         setBrand(data.brand);
         setDescription(data.description);
+
+        //accessory names
+        setNames(results.data)
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -104,7 +113,9 @@ export default function ProductEditScreen() {
           images,
           category,
           brand,
-          countInStock,
+          inStock,
+          accessories,
+          featured,
           description,
         },
         {
@@ -121,6 +132,9 @@ export default function ProductEditScreen() {
       dispatch({ type: 'UPDATE_FAIL' });
     }
   };
+
+
+  ///UPLOAD PHOTO HANDLER
   const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -146,6 +160,9 @@ export default function ProductEditScreen() {
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
     }
   };
+
+
+  //DELETE PHOTO HANDLER
   const deleteFileHandler = async (fileName, f) => {
     console.log(fileName, f);
     console.log(images);
@@ -153,6 +170,20 @@ export default function ProductEditScreen() {
     setImages(images.filter((x) => x !== fileName));
     toast.success('Image removed successfully. click Update to apply it');
   };
+
+
+
+
+  const handleSelectChange=(e) => {
+    const selectedaccessoryID = e.target.value;
+    setAccessories([...accessories, selectedaccessoryID])
+  }
+
+
+
+
+
+
   return (
     <Container className="small-container">
       <Helmet>
@@ -246,11 +277,31 @@ export default function ProductEditScreen() {
           <Form.Group className="mb-3" controlId="countInStock">
             <Form.Label>Count In Stock</Form.Label>
             <Form.Control
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
+              value={inStock}
+              onChange={(e) => setinStock(e.target.value)}
               required
             />
           </Form.Group>
+
+          <Form.Group className='mt-2'>
+                <Form.Label><h4>Product Accessories</h4></Form.Label>
+                <Form.Control as='select' onChange={handleSelectChange} className='mt-3'>
+                <option value="">-- Select a Product --</option>
+                {names?.map((n)=> (
+                    <option key={n._id} value={n._id}className='mb-2'>
+                        {n.name}
+                    </option>
+                ))}
+                </Form.Control>
+            </Form.Group>
+        <div>
+            <strong>Selected Products</strong>
+            <ol>
+                {accessories.map((selectedId)=>(
+                    <li key={selectedId}><strong>ACCESSORYID: </strong>{selectedId}</li>
+                ))}
+            </ol>
+        </div>
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
@@ -259,6 +310,12 @@ export default function ProductEditScreen() {
               required
             />
           </Form.Group>
+          <Form.Check type='checkbox'
+            checked={featured}
+            label='Featured'
+            id='Featured'
+            onChange={(e)=> setFeatured(e.target.checked)}
+          />
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
               Update

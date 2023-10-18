@@ -3,7 +3,13 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
-import { isAuth, isAdmin, generateToken, baseUrl, mailgun } from '../utils.js';
+import { isAuth, isAdmin, generateToken, baseUrl, mailgun,} from '../utils.js';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
+
+
+
+
 
 const userRouter = express.Router();
 
@@ -194,5 +200,15 @@ userRouter.post(
     });
   })
 );
+
+
+userRouter.get(
+  '/google-auth',
+  expressAsyncHandler(async(req, res)=> {
+    res.send('google auth')
+  })
+)
+
+
 
 export default userRouter;

@@ -2,7 +2,8 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 import { isAuth, isAdmin } from '../utils.js';
-
+import {v4 as uuidv4} from 'uuid'
+import Accessory from '../models/accessoryModel.js';
 const productRouter = express.Router();
 
 productRouter.get('/', async (req, res) => {
@@ -10,19 +11,31 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 
+productRouter.get(
+  '/featured',
+  expressAsyncHandler(async(req, res)=> {
+    const products = await Product.find({featured: true})
+    res.send(products)
+  })
+  )
+
 productRouter.post(
   '/',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
+    const sku = uuidv4().substring(0, 6)
+   // console.log(sku)
     const newProduct = new Product({
       name: 'sample name ' + Date.now(),
-      slug: 'sample-name-' + Date.now(),
+      slug: 'sample name'+ Date.now(),
+      sku: sku,
       image: '/images/p1.jpg',
       price: 0,
+      featured: false,
       category: 'sample category',
       brand: 'sample brand',
-      countInStock: 0,
+      inStock: 0,
       rating: 0,
       numReviews: 0,
       description: 'sample description',
@@ -41,14 +54,35 @@ productRouter.put(
     const product = await Product.findById(productId);
     if (product) {
       product.name = req.body.name;
-      product.slug = req.body.slug;
+      product.slug = req.body.name.toLowerCase().replace(/ /g, '-');
       product.price = req.body.price;
       product.image = req.body.image;
       product.images = req.body.images;
       product.category = req.body.category;
       product.brand = req.body.brand;
-      product.countInStock = req.body.countInStock;
+      product.inStock = req.body.inStock;
       product.description = req.body.description;
+      product.featured = req.body.featured
+
+
+      const accessoryArray = []
+
+      for(const accessoryId of req.body.accessories){
+        const accessory = await Accessory.findById(accessoryId)
+
+        if(accessory){
+          accessoryArray.push({
+            name: accessory.name,
+            price: accessory.price, 
+            photo: accessory.photo,
+            inStock: accessory.inStock,
+            accessory: accessory._id
+          })
+        }
+      }
+
+      product.accessories = accessoryArray
+
       await product.save();
       res.send({ message: 'Product Updated' });
     } else {
@@ -218,6 +252,14 @@ productRouter.get(
   })
 );
 
+productRouter.get(
+  '/names',
+  expressAsyncHandler(async(req, res)=> {
+    const names = await Product.find({}, 'name')
+    res.send(names)
+  })
+)
+
 productRouter.get('/slug/:slug', async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
   if (product) {
@@ -226,6 +268,7 @@ productRouter.get('/slug/:slug', async (req, res) => {
     res.status(404).send({ message: 'Product Not Found' });
   }
 });
+
 productRouter.get('/:id', async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {

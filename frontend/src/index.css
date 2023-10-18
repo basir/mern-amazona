@@ -1,8 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 800;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -14,14 +18,30 @@ main {
 }
 .btn-primary,
 .btn-outline-primary {
-  background-color: #f0c040;
-  color: #000000;
+  background-color: rgba(210, 180, 140, 0);
+  border-color: rgb(100 116 139);
+  color: rgb(91, 98, 103)
 }
-.products {
+/* .products {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+} */
+
+.products {
+  display: flex;
+  justify-content: center;
+    /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.2px);
+  -webkit-backdrop-filter: blur(7.2px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  padding: 2px;
+  white-space: nowrap;
+  overflow-x: auto;
+  }
 
 .rating span {
   color: #ffc000;
@@ -38,6 +58,10 @@ main {
 .product-info {
   padding: 1rem;
 }
+
+.product-name{
+  text-decoration: none;
+}
 .img-large {
   max-width: 100%;
 }
@@ -48,13 +72,22 @@ main {
   max-width: 600px;
 }
 
-.checkout-steps > div {
+/* .checkout-steps > div {
   border-bottom: 0.2rem solid #a0a0a0;
   color: #a0a0a0;
 }
 .checkout-steps > div.active {
   border-bottom: 0.2rem solid #f08000;
   color: #f08000;
+} */
+
+.checkout-steps > div {
+  border-bottom: 0.2rem solid mediumaquamarine;
+  color: mediumaquamarine;
+}
+.checkout-steps > div.active {
+  border-bottom: 0.2rem solid teal;
+  color: teal;
 }
 
 /* sidebar */
@@ -63,11 +96,12 @@ main {
 }
 .side-navbar {
   width: 240px;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   left: -300px;
   background-color: #100901;
   transition: 0.5s;
+  overflow-y: auto;
 }
 
 .site-container {
@@ -124,4 +158,55 @@ main {
 }
 button.thumbnail {
   padding: 0;
+}
+
+.categLink{
+  color: antiquewhite;
+}
+
+.featured{
+  font-weight: 500;
+  margin-top: 62px;
+  padding-bottom:42px ;
+  text-align: center;
+}
+
+.navigation{
+  //background-image: linear-gradient(to right, #434343 0%, black 100%);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  //margin-top: 24px;
+  margin-bottom: 24px
+ 
+}
+
+.footer{
+  //background-image: linear-gradient(to right, #434343 0%, black 100%);
+  padding-left: 24px;
+  padding-top: 24px;
+  margin-bottom: 24px;
+  min-height: 200px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7.2px);
+  -webkit-backdrop-filter: blur(7.2px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+
+}
+
+.card-img-top{
+  width: 100%;
+  max-wiidth: 400px;
+}
+.banner{
+ /*  padding: 12px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+ */
+ padding: 12px;
+ background: rgba(255, 255, 255, 0.25);
+ border-radius: 16px;
+ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+ backdrop-filter: blur(7.2px);
+ -webkit-backdrop-filter: blur(7.2px);
+ border: 1px solid rgba(255, 255, 255, 0.11);
 }

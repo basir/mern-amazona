@@ -15,6 +15,7 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Accessory from '../components/Accessory';
 import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
@@ -184,7 +185,7 @@ function ProductScreen() {
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0 ? (
+                      {product.inStock > 0 ? (
                         <Badge bg="success">In Stock</Badge>
                       ) : (
                         <Badge bg="danger">Unavailable</Badge>
@@ -193,7 +194,7 @@ function ProductScreen() {
                   </Row>
                 </ListGroup.Item>
 
-                {product.countInStock > 0 && (
+                {product.inStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
@@ -207,6 +208,21 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
+      {/* ACCESSORIES */}
+      
+      {product.accessories.length > 0 ? (
+        <Row>
+          <h4 className='p-4 m-3 bg-dark text-light'>Product Accessories</h4>
+          {product.accessories.map((accessory)=> (
+            <Col md={2} xs={6} key={accessory.accessory}>
+            <Accessory accessory={accessory}></Accessory>
+            </Col>
+          ))}
+        </Row>
+      ): (<MessageBox className="py-2">No Accessories</MessageBox>)}
+
+
+      {/* REVIEWS */}
       <div className="my-3">
         <h2 ref={reviewsRef}>Reviews</h2>
         <div className="mb-3">

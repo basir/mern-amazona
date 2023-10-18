@@ -36,6 +36,11 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import ViewCategory from './screens/ViewCategory';
+import CreateCollections from './screens/CreateCollections';
+import Row from 'react-bootstrap/esm/Row';
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
+import Col from 'react-bootstrap/esm/Col';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -60,8 +65,18 @@ function App() {
         toast.error(getError(err));
       }
     };
-    fetchCategories();
+    /* const getStripeKey =async()=>{
+      const {publishableKey} = axios.get('/api/orders/config', 
+      {
+        headers: {Authorization: `Bearer${userInfo.token}`}
+      })
+      setstripePromise(loadStripe(toString(publishableKey)))
+    } */
+    fetchCategories()
+    //getStripeKey()
   }, []);
+
+
   return (
     <BrowserRouter>
       <div
@@ -77,18 +92,21 @@ function App() {
       >
         <ToastContainer position="bottom-center" limit={1} />
         <header>
-          <Navbar bg="dark" variant="dark" expand="lg">
+          <Navbar variant="light" expand="lg" className='navigation'>
             <Container>
-              <Button
+              <Button className='btn-md'
                 variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
               </Button>
 
-              <LinkContainer to="/">
-                <Navbar.Brand>amazona</Navbar.Brand>
+              <LinkContainer to="/" style={{marginRight:'0'}}>
+                <Navbar.Brand onClick={()=> setSidebarIsOpen(false)}>
+                  <img src='/images/logo.png' width={100} alt='logo'/>
+                </Navbar.Brand>
               </LinkContainer>
+
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
@@ -137,6 +155,9 @@ function App() {
                       <LinkContainer to="/admin/users">
                         <NavDropdown.Item>Users</NavDropdown.Item>
                       </LinkContainer>
+                      <LinkContainer to="/admin/collections">
+                      <NavDropdown.Item>Categories & Collections</NavDropdown.Item>
+                      </LinkContainer>
                     </NavDropdown>
                   )}
                 </Nav>
@@ -167,10 +188,11 @@ function App() {
             ))}
           </Nav>
         </div>
-        <main>
+        <main onClick={()=> setSidebarIsOpen(false)}>
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path='/category/:id' element={<ViewCategory />}/>
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
@@ -205,7 +227,7 @@ function App() {
                 path="/order/:id"
                 element={
                   <ProtectedRoute>
-                    <OrderScreen />
+                    <OrderScreen/>
                   </ProtectedRoute>
                 }
               ></Route>
@@ -271,14 +293,66 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+              <Route path="/admin/collections" element={
+                <AdminRoute>
+                  <CreateCollections />
+                </AdminRoute>
+              }>
+
+              </Route>
 
               <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
+          <FloatingWhatsApp phoneNumber='+256782144414'/>
         </main>
-        <footer>
-          <div className="text-center">All rights reserved</div>
+        <footer className='p-y-4 justify-content-center'>
+          <Row className='footer-row footer'>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Contact Us</h5>
+            <ul className='list-group'> 
+                <li>Email: <span>info@binarymall.net</span></li>
+                <li>Phone: <span>+256782144414</span></li>
+                <li>Phone: <span>+256701583150</span></li>
+                <li>Address: </li>
+                <li>Operating: <span>Mon - Sun</span></li>
+                <li>Hours: <span>24(GMT+3) </span></li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Our Services</h5>
+            <ul className='list-group'> 
+                <li>Retail</li>
+                <li>Trade</li>
+                <li>Brand Development</li>
+                <li>Advertisment</li>
+                <li>Events</li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Quick Links</h5>
+            <ul className='list-group'> 
+                <li>Carrers</li>
+                <li>Become Supplier</li>
+                <li>Become Seller</li>
+                <li>Advertisment</li>
+                <li>Become Partner</li>
+            </ul>
+          </Col>
+          <Col sm={6} md={4} lg={3}>
+            <h5>Socials</h5>
+            <ul className='list-group'> 
+                <li>Facebook</li>
+                <li><a href='https://www.instagram.com/ugyard/'>Instagram</a></li>
+                <li>Pinterest</li>
+                <li>Twitter</li>
+                <li>Linked In</li>
+            </ul>
+          </Col>
+          </Row>
         </footer>
+        <div className='text-center'> Product Under Test Mode</div>
+        <div className='text-center'>copyright &copy; {new Date().getFullYear()}</div>
       </div>
     </BrowserRouter>
   );

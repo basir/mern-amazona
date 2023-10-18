@@ -1,5 +1,11 @@
 import jwt from 'jsonwebtoken';
 import mg from 'mailgun-js';
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
+
+
+
 
 export const baseUrl = () =>
   process.env.BASE_URL
@@ -14,14 +20,26 @@ export const generateToken = (user) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
       isAdmin: user.isAdmin,
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: '30d',
+      expiresIn: '5d',
     }
   );
 };
+
+export const Passport = ()=> passport.use(
+    new GoogleStrategy(
+      {
+        clientID: '',
+        clientSecret: '',
+        callbackURL: '',
+      }
+    )
+  )
+
 
 export const isAuth = (req, res, next) => {
   const authorization = req.headers.authorization;
@@ -113,3 +131,4 @@ export const payOrderEmailTemplate = (order) => {
   </p>
   `;
 };
+

@@ -162,22 +162,24 @@ export default function ProductListScreen() {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>SKU</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
+                  <td>{product.sku}</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>{product.featured === true ? 'Featured' : 'Not'}</td>
                   <td>
                     <Button
                       type="button"
