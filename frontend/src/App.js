@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes} from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
@@ -10,7 +10,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext, useEffect, useState } from 'react';
-import logo from './images/logo.png'
 import { Store } from './Store';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -35,21 +34,18 @@ import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
-import Shopscreen from './screens/Shopscreen';
-import Col from 'react-bootstrap/esm/Col';
-import Row from 'react-bootstrap/esm/Row';
 import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
-
+import ViewCategory from './screens/ViewCategory';
+import CreateCollections from './screens/CreateCollections';
+import Row from 'react-bootstrap/esm/Row';
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
+import Col from 'react-bootstrap/esm/Col';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { fullBox, cart, userInfo } = state;
-  const date = new Date()
 
-
-  
-  
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
@@ -57,11 +53,8 @@ function App() {
     localStorage.removeItem('paymentMethod');
     window.location.href = '/signin';
   };
-
-
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -72,11 +65,20 @@ function App() {
         toast.error(getError(err));
       }
     };
-    fetchCategories();
+    /* const getStripeKey =async()=>{
+      const {publishableKey} = axios.get('/api/orders/config', 
+      {
+        headers: {Authorization: `Bearer${userInfo.token}`}
+      })
+      setstripePromise(loadStripe(toString(publishableKey)))
+    } */
+    fetchCategories()
+    //getStripeKey()
   }, []);
+
+
   return (
     <BrowserRouter>
-  
       <div
         className={
           sidebarIsOpen
@@ -88,53 +90,37 @@ function App() {
             : 'site-container d-flex flex-column'
         }
       >
-        <ToastContainer position="top-center" limit={2} />
-        <header className='header-nav'>
-          <Navbar bg="light" variant="light" expand="lg" className='nav-menu'>
-            <Container> 
-              <Button
-                variant="light btn-lg"
+        <ToastContainer position="bottom-center" limit={1} />
+        <header>
+          <Navbar variant="light" expand="lg" className='navigation'>
+            <Container>
+              <Button className='btn-md'
+                variant="dark"
                 onClick={() => setSidebarIsOpen(!sidebarIsOpen)}
               >
                 <i className="fas fa-bars"></i>
               </Button>
 
-          <Navbar.Brand>
-          <Link to={'/'}>
-          <img
-          className='brand-fluid d-inline position-relative'
-          width={200}
-          height={120}
-          src={logo}
-          alt={'logo'}
-          />
-          </Link>
+              <LinkContainer to="/" style={{marginRight:'0'}}>
+                <Navbar.Brand onClick={()=> setSidebarIsOpen(false)}>
+                  <img src='/images/logo.png' width={100} alt='logo'/>
+                </Navbar.Brand>
+              </LinkContainer>
 
-          </Navbar.Brand>  
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
-                  <i className='fas fa-shopping-cart'/>
+                    Cart
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
                   </Link>
-                  <Link  className='nav-link' to='#' 
-                  onClick={(e)=>{window.location.href='mailto:info@binarymall.net'; 
-                  e.preventDefault()}}>
-                    Support
-                  </Link>
-                  <Link  className='nav-link' to='#' 
-                  onClick={(e) =>{window.location.href='tel:+256756613319'}}>
-                    Hotline
-                  </Link>
                   {userInfo ? (
-                    
-                    <NavDropdown title={ userInfo.name} id="basic-nav-dropdown">
+                    <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
@@ -169,6 +155,9 @@ function App() {
                       <LinkContainer to="/admin/users">
                         <NavDropdown.Item>Users</NavDropdown.Item>
                       </LinkContainer>
+                      <LinkContainer to="/admin/collections">
+                      <NavDropdown.Item>Categories & Collections</NavDropdown.Item>
+                      </LinkContainer>
                     </NavDropdown>
                   )}
                 </Nav>
@@ -185,36 +174,29 @@ function App() {
         >
           <Nav className="flex-column text-white w-100 p-2">
             <Nav.Item>
-              <Link to='/'>
-              <i className="fa fa-home" aria-hidden="true">HOME</i>
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
-            {categories && categories.map && categories.map((category) => (
+            {categories.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
                   to={{ pathname: '/search', search: `category=${category}` }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link className='categLink'>{category.toUpperCase()}
-                  </Nav.Link>
+                  <Nav.Link>{category}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
           </Nav>
         </div>
-        
-        <main>
+        <main onClick={()=> setSidebarIsOpen(false)}>
           <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
+              <Route path='/category/:id' element={<ViewCategory />}/>
               <Route path="/cart" element={<CartScreen />} />
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
-              <Route path='/shop' element={<Shopscreen />}/>
               <Route
                 path="/forget-password"
                 element={<ForgetPasswordScreen />}
@@ -245,7 +227,7 @@ function App() {
                 path="/order/:id"
                 element={
                   <ProtectedRoute>
-                    <OrderScreen />
+                    <OrderScreen/>
                   </ProtectedRoute>
                 }
               ></Route>
@@ -311,21 +293,28 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+              <Route path="/admin/collections" element={
+                <AdminRoute>
+                  <CreateCollections />
+                </AdminRoute>
+              }>
 
-              <Route path="/" element={<HomeScreen/>} />
+              </Route>
+
+              <Route path="/" element={<HomeScreen />} />
             </Routes>
           </Container>
+          <FloatingWhatsApp phoneNumber='+256782144414'/>
         </main>
-
-        <footer className='p-y-4 justify-content-center Footer'>
-          <Row className='footer-row'>
+        <footer className='p-y-4 justify-content-center'>
+          <Row className='footer-row footer'>
           <Col sm={6} md={4} lg={3}>
             <h5>Contact Us</h5>
             <ul className='list-group'> 
-                <li>Email: <span>sales@ugyard.com</span></li>
+                <li>Email: <span>info@binarymall.net</span></li>
                 <li>Phone: <span>+256782144414</span></li>
                 <li>Phone: <span>+256701583150</span></li>
-                <li>Address: <span>coming soon<br/>coming soon</span></li>
+                <li>Address: </li>
                 <li>Operating: <span>Mon - Sun</span></li>
                 <li>Hours: <span>24(GMT+3) </span></li>
             </ul>
@@ -354,7 +343,7 @@ function App() {
             <h5>Socials</h5>
             <ul className='list-group'> 
                 <li>Facebook</li>
-                <li>Instagram</li>
+                <li><a href='https://www.instagram.com/ugyard/'>Instagram</a></li>
                 <li>Pinterest</li>
                 <li>Twitter</li>
                 <li>Linked In</li>
@@ -363,7 +352,7 @@ function App() {
           </Row>
         </footer>
         <div className='text-center'> Product Under Test Mode</div>
-        <div className='text-center'>copyright &copy; {date.getFullYear()}</div>
+        <div className='text-center'>copyright &copy; {new Date().getFullYear()}</div>
       </div>
     </BrowserRouter>
   );

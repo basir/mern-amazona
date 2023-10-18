@@ -4,6 +4,10 @@ import Order from '../models/orderModel.js';
 import User from '../models/userModel.js';
 import Product from '../models/productModel.js';
 import { isAuth, isAdmin, mailgun, payOrderEmailTemplate } from '../utils.js';
+import Stripe from 'stripe';
+//import dotenv from 'dotenv'
+
+//dotenv.config()
 
 const orderRouter = express.Router();
 
@@ -29,6 +33,12 @@ orderRouter.post(
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
+      timeslot: req.body.timeslot,
+      deliveryDate: req.body.deliveryDate,
+      orderNotes: req.body.orderNotes,
+      deliveryMessage: req.body.deliveryMessage,
+      codes: req.body.code,  
+      surprise: req.body.surprise,
       user: req.user._id,
     });
 
@@ -36,6 +46,55 @@ orderRouter.post(
     res.status(201).send({ message: 'New Order Created', order });
   })
 );
+
+orderRouter.get(
+  '/config',
+  isAuth,
+  expressAsyncHandler(async(req, res)=> {
+    const publishableKey = process.env.pk_test
+    res.send(publishableKey)
+
+  })
+)
+
+//const amountInCents = (amount) => Math.round(amount * 100);
+
+orderRouter.post(
+  '/intent',
+  expressAsyncHandler(async(req, res)=> {
+    const stripe = Stripe(process.env.sk_test)
+    
+    try{
+      const {totalPrice, orderId} = req.body
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: parseInt(Math.round(totalPrice * 100)),
+        //amount: 1000,
+        currency: "aed",
+        //payment_method_types: ['card'],
+        description: `Payment for ${orderId}`,
+        automatic_payment_methods: {enabled: true},
+        metadata: {
+          order_id: orderId,
+        },
+      })
+      res.send({clientSecret: paymentIntent.client_secret})
+      const order = await Order.findById(orderId)
+      if(order){
+        //console.log(order)
+        order.isPaid = true
+        order.paidAt = Date.now()
+
+        await order.save()
+      }else{
+        res.send("Something went wrong")
+      }
+      //console.log(clientSecret)
+    }catch(error){
+      //res.send({error: error.message})
+      console.log(error)
+    }
+  })
+)
 
 orderRouter.get(
   '/summary',
@@ -75,7 +134,7 @@ orderRouter.get(
           _id: '$category',
           count: { $sum: 1 },
         },
-      }
+      },
     ]);
     res.send({ users, orders, dailyOrders, productCategories });
   })
@@ -115,50 +174,6 @@ orderRouter.put(
       res.send({ message: 'Order Delivered' });
     } else {
       res.status(404).send({ message: 'Order Not Found' });
-    }
-  })
-);
-
-orderRouter.put(
-  '/:id/pay',
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id).populate(
-      'user',
-      'email name'
-    );
-    if (order) {
-      order.isPaid = true;
-      order.paidAt = Date.now();
-      order.paymentResult = {
-        id: req.body.id,
-        status: req.body.status,
-        update_time: req.body.update_time,
-        email_address: req.body.email_address,
-      };
-
-      const updatedOrder = await order.save();
-      mailgun()
-        .messages()
-        .send(
-          {
-            from: 'Amazona <amazona@mg.yourdomain.com>',
-            to: `${order.user.name} <${order.user.email}>`,
-            subject: `New order ${order._id}`,
-            html: payOrderEmailTemplate(order),
-          },
-          (error, body) => {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log(body);
-            }
-          }
-        );
-
-      res.send({ message: 'Order Paid', order: updatedOrder });
-    } else {
-      res.status(404).send({message: 'Order Not Found' });
     }
   })
 );

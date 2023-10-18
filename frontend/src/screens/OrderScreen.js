@@ -1,6 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +13,9 @@ import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
 import { toast } from 'react-toastify';
+import { loadStripe } from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+import StripeForm from '../components/StripeForm';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -48,9 +50,19 @@ function reducer(state, action) {
       return state;
   }
 }
+
+
+const stripePromise = loadStripe('pk_test_51Kol2yCMPnf8ElNNYyk32fBS5Y56Wnxg0Vivzje7f0Mm5pr7C22Nh8se3UzvSpGa8hUpMRkOSU7ktp98V65Cy5qm00xcA2bduW')
+
+
 export default function OrderScreen() {
+  //const {stripePromise} = props
+
+
+  const [clientSecret, setclientSecret] = useState(null)
   const { state } = useContext(Store);
   const { userInfo } = state;
+
 
   const params = useParams();
   const { id: orderId } = params;
@@ -75,45 +87,17 @@ export default function OrderScreen() {
     loadingPay: false,
   });
 
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  //const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
 
-  function createOrder(data, actions) {
-    return actions.order
-      .create({
-        purchase_units: [
-          {
-            amount: { value: order.totalPrice },
-          },
-        ],
-      })
-      .then((orderID) => {
-        return orderID;
-      });
-  }
 
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      try {
-        dispatch({ type: 'PAY_REQUEST' });
-        const { data } = await axios.put(
-          `/api/orders/${order._id}/pay`,
-          details,
-          {
-            headers: { authorization: `Bearer ${userInfo.token}` },
-          }
-        );
-        dispatch({ type: 'PAY_SUCCESS', payload: data });
-        toast.success('Order is paid');
-      } catch (err) {
-        dispatch({ type: 'PAY_FAIL', payload: getError(err) });
-        toast.error(getError(err));
-      }
-    });
-  }
-  function onError(err) {
-    toast.error(getError(err));
-  }
-
+  /* const appearance = {
+    theme: 'stripe',
+  }; */
+  /* const options = {
+    clientSecret,
+    appearance,
+  };  */
+  
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -130,12 +114,7 @@ export default function OrderScreen() {
     if (!userInfo) {
       return navigate('/login');
     }
-    if (
-      !order._id ||
-      successPay ||
-      successDeliver ||
-      (order._id && order._id !== orderId)
-    ) {
+    if (!order._id || successPay || successDeliver || (order._id && order._id !== orderId)) {
       fetchOrder();
       if (successPay) {
         dispatch({ type: 'PAY_RESET' });
@@ -144,30 +123,29 @@ export default function OrderScreen() {
         dispatch({ type: 'DELIVER_RESET' });
       }
     } else {
-      const loadPaypalScript = async () => {
-        const { data: clientId } = await axios.get('/api/keys/paypal', {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-        paypalDispatch({
-          type: 'resetOptions',
-          value: {
-            'client-id': clientId,
-            currency: 'USD',
-          },
-        });
-        paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
-      };
-      loadPaypalScript();
+      const getIntent = async()=> {
+        const {data} = await axios.post("/api/orders/intent", {
+          totalPrice: order.totalPrice,
+          orderId
+        })
+        setclientSecret(data.clientSecret)
+        console.log(clientSecret)
+      }
+      getIntent()
     }
+    
   }, [
     order,
     userInfo,
     orderId,
     navigate,
-    paypalDispatch,
     successPay,
     successDeliver,
   ]);
+
+
+
+
 
   async function deliverOrderHandler() {
     try {
@@ -204,7 +182,6 @@ export default function OrderScreen() {
               <Card.Title>Shipping</Card.Title>
               <Card.Text>
                 <strong>Name:</strong> {order.shippingAddress.fullName} <br />
-                <strong>Phone:</strong> {order.shippingAddress.phone} <br />
                 <strong>Address: </strong> {order.shippingAddress.address},
                 {order.shippingAddress.city}, {order.shippingAddress.postalCode}
                 ,{order.shippingAddress.country}
@@ -236,7 +213,7 @@ export default function OrderScreen() {
               </Card.Text>
               {order.isPaid ? (
                 <MessageBox variant="success">
-                  Paid at {order.paidAt}
+                  Paid at {order.paidAt.substring(0, 10)}
                 </MessageBox>
               ) : (
                 <MessageBox variant="danger">Not Paid</MessageBox>
@@ -253,7 +230,7 @@ export default function OrderScreen() {
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img
-                          src={item.image}
+                          src={item.image || item.photo}
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
@@ -262,7 +239,7 @@ export default function OrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>UGX: {item.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                      <Col md={3}>${item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -278,19 +255,19 @@ export default function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>UGX: {order.itemsPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${order.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>UGX: {order.shippingPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${order.shippingPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>UGX: {order.taxPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${order.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -299,23 +276,21 @@ export default function OrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>UGX: {order.totalPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</strong>
+                      <strong>${order.totalPrice.toFixed(2)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid && (
+                {!order.isPaid && order.paymentMethod === 'Stripe' &&(
                   <ListGroup.Item>
-                    {isPending ? (
-                      <LoadingBox />
-                    ) : (
+                    {
                       <div>
-                        <PayPalButtons
-                          createOrder={createOrder}
-                          onApprove={onApprove}
-                          onError={onError}
-                        ></PayPalButtons>
+                        {clientSecret && stripePromise && (
+                          <Elements options={{clientSecret}} stripe={stripePromise}>
+                            <StripeForm />
+                          </Elements>
+                        )}
                       </div>
-                    )}
+                    }
                     {loadingPay && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
                 )}

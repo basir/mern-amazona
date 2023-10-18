@@ -96,7 +96,7 @@ export default function OrderHistoryScreen() {
                   </Button>
                 </td>
               </tr>
-            )).reverse()}
+            ))}
           </tbody>
         </table>
       )}

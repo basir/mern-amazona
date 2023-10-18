@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Form from 'react-bootstrap/esm/Form'
 import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
@@ -34,7 +35,16 @@ export default function PlaceOrderScreen() {
   });
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart, userInfo } = state;
+  const { cart, userInfo} = state;
+  
+  const [loyaltyCode, setLoyaltyCode] = useState('')
+  const [orderNotes, setorderNotes] = useState('')
+  const [deliveryMessage, setdeliveryMessage] = useState('')
+  const [surprise, setSurprise] = useState(false)
+  const [discountedTotalPrice, setDiscountedTotalPrice] = useState(cart.totalPrice);
+
+
+  
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
   cart.itemsPrice = round2(
@@ -42,8 +52,39 @@ export default function PlaceOrderScreen() {
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice + cart.timeslot.fee;
+  //const loyaltytotalPrice = cart.loyaltyDiscountTotal
 
+
+
+
+  ////APPLY CODE FUNCTION
+  const handleDiscount=()=> {
+    const loyaltyCodeString = loyaltyCode.toString()
+    //percentage = parseInt(loyatyCode.slice(-2), 10 || 0)
+    setLoyaltyCode(loyaltyCodeString)
+    console.log(loyaltyCode)
+    if(loyaltyCode.length !== 5){
+      const percentageCharaters = loyaltyCodeString.slice(-2)
+      const loyaltyDiscountPercentage = parseInt(percentageCharaters, 10);
+
+      if(!isNaN(loyaltyDiscountPercentage)){
+        console.log(loyaltyDiscountPercentage)
+
+        const loyaltyDiscount = (loyaltyDiscountPercentage / 100) * cart.totalPrice
+        const loyaltytotalPercentage = round2(loyaltyDiscount)
+        console.log(loyaltyDiscount)
+        const newTotal = cart.totalPrice = cart.totalPrice - loyaltytotalPercentage
+        setDiscountedTotalPrice(newTotal.toFixed(2));
+        console.log(cart.totalPrice.toFixed(2))
+        console.log()
+      }else{
+        console.log(loyaltyDiscountPercentage)
+      }
+    }else{
+      toast.error('Code must be 6 characters')
+    }
+  }
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
@@ -57,7 +98,13 @@ export default function PlaceOrderScreen() {
           itemsPrice: cart.itemsPrice,
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
-          totalPrice: cart.totalPrice,
+          totalPrice: discountedTotalPrice,
+          timeslot: cart.timeslot,
+          deliveryDate: cart.deliveryDate,
+          orderNotes: orderNotes,
+          deliveryMessage: deliveryMessage,
+          surprise: surprise,
+          code: loyaltyCode
         },
         {
           headers: {
@@ -81,6 +128,7 @@ export default function PlaceOrderScreen() {
     }
   }, [cart, navigate]);
 
+  
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -112,6 +160,17 @@ export default function PlaceOrderScreen() {
               <Link to="/payment">Edit</Link>
             </Card.Body>
           </Card>
+          <Card className='mb-3'>
+            <Card.Body>
+            <Card.Title>Order Details</Card.Title>
+            <Card.Text>
+            <strong>Time:</strong> {cart.timeslot.name}<br/>
+            <strong>Hours:</strong> {cart.timeslot.time}<br/>
+            <strong>Urgency Fee:</strong> {cart.timeslot.fee}-AED
+            </Card.Text>
+            <Link to="/payment">Edit</Link>
+            </Card.Body>
+          </Card>
 
           <Card className="mb-3">
             <Card.Body>
@@ -122,7 +181,7 @@ export default function PlaceOrderScreen() {
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img
-                          src={item.image}
+                          src={item.image || item.photo}
                           alt={item.name}
                           className="img-fluid rounded img-thumbnail"
                         ></img>{' '}
@@ -131,7 +190,7 @@ export default function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>UGX:{item.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                      <Col md={3}>${item.price}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -141,6 +200,40 @@ export default function PlaceOrderScreen() {
           </Card>
         </Col>
         <Col md={4}>
+          <Card className='mb-2'>
+            <Card.Body>
+              <Card.Title>ORDER NOTES</Card.Title>
+              <Form.Group className='mb-3'>
+                <Form.Label>Order Notes</Form.Label>
+                <Form.Control type='text'
+                  value={orderNotes}
+                  onChange={((e)=> setorderNotes(e.target.value))}
+                  placeholder='put short instructions you want us to follow in this araea'
+                />
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>Delivery Message</Form.Label>
+                <Form.Control as='textarea' rows={3}
+                  value={deliveryMessage}
+                  onChange={(e)=> {setdeliveryMessage(e.target.value); console.log(deliveryMessage)}}
+                placeholder='Add a sweet message you want to send the reciever or something of that kind in this area'
+                />
+              </Form.Group>
+              <Form.Group className='mb-2'>
+                <Form.Label>Surprise</Form.Label>
+                <Form.Check type='checkbox'
+                  id='surprise'
+                  checked={surprise}
+                  onChange={(e)=> {
+                  setSurprise(e.target.checked)
+
+                  //console.log(e.target.checked)
+                }}
+                label='I dont want to disclose information to the recipeint'
+                />
+              </Form.Group>
+            </Card.Body>
+          </Card>
           <Card>
             <Card.Body>
               <Card.Title>Order Summary</Card.Title>
@@ -148,19 +241,25 @@ export default function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>UGX:{cart.itemsPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${cart.itemsPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>UGX:{cart.shippingPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${cart.shippingPrice.toFixed(2)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Urgency Fee</Col>
+                    <Col>${cart.timeslot.fee.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>UGX:{cart.taxPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${cart.taxPrice.toFixed(2)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -169,7 +268,20 @@ export default function PlaceOrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>UGX:{cart.totalPrice.toFixed(2).toLocaleString(undefined, {maximumFractionDigits: 2})}</strong>
+                    <strong>${loyaltyCode ? discountedTotalPrice : cart.totalPrice.toFixed(2)}</strong>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Loyalty Code
+                    <span>
+                      <Form.Control type='text'
+                        value={loyaltyCode || ''}
+                       onChange={(e)=>setLoyaltyCode(e.target.value)}
+                      />
+                      <Button className='btn-sm mt-2 btn-success' onClick={handleDiscount}>APPLY CODE</Button>
+                      </span>
                     </Col>
                   </Row>
                 </ListGroup.Item>

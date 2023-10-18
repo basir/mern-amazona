@@ -5,7 +5,7 @@ import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
-import { toast } from 'react-toastify';
+
 
 function Product(props) {
   const { product } = props;
@@ -16,11 +16,10 @@ function Product(props) {
   } = state;
 
   const addToCartHandler = async (item) => {
-    toast.success('item added to cart')
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${item._id}`);
-    if (data.countInStock < quantity) {
+    if (data.inStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
     }
@@ -31,26 +30,22 @@ function Product(props) {
   };
 
   return (
-    <Card>  
+    <Card>
       <Link to={`/product/${product.slug}`}>
         <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>
-      <Card.Body className='d-grid justify-content-center card-info p-3'>
-        <Link to={`/product/${product.slug}`} className='product-link'>
-          <Card.Title>{product.name}</Card.Title>
+      <Card.Body className='d-grid justify-content-center card-info'>
+        <Link to={`/product/${product.slug}`}>
+          <Card.Title className='product-name'>{product.name.toUpperCase()}</Card.Title>
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
-        <Card.Text className='p-4'>UGX: {product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Card.Text>
-        {product.countInStock === 0 ? (
+        <Card.Text>UGX: {product.price}</Card.Text>
+        {product.inStock === 0 ? (
           <Button variant="light" disabled>
             Out of stock
           </Button>
         ) : (
-          <div className='d-grid gap-2 justify-content-center'>
-              <Button onClick={() => addToCartHandler(product)} 
-              className='btn-secondary btn-md' >I LIKE <span>
-              <i className='fas fa-shopping-cart'/></span></Button>
-          </div>
+          <Button onClick={() => addToCartHandler(product)}>Add to cart</Button>
         )}
       </Card.Body>
     </Card>

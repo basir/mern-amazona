@@ -12,9 +12,6 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 
-
-
-//state reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -63,25 +60,33 @@ export default function ProductEditScreen() {
   const [image, setImage] = useState('');
   const [images, setImages] = useState([]);
   const [category, setCategory] = useState('');
-  const [countInStock, setCountInStock] = useState('');
+  const [inStock, setinStock] = useState('');
   const [brand, setBrand] = useState('');
+  const [featured, setFeatured]= useState(false)
+  const [accessories, setAccessories] = useState([])
   const [description, setDescription] = useState('');
 
-  //product details fetch 
+  const [names, setNames]= useState([])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch({ type: 'FETCH_REQUEST'});
+        dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`/api/products/${productId}`);
+        const results  = await axios.get('/api/accessories/names')
         setName(data.name);
         setSlug(data.slug);
         setPrice(data.price);
         setImage(data.image);
         setImages(data.images);
         setCategory(data.category);
-        setCountInStock(data.countInStock);
+        setinStock(data.inStock);
+        //setAccessories(data.accessories)
         setBrand(data.brand);
         setDescription(data.description);
+
+        //accessory names
+        setNames(results.data)
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
         dispatch({
@@ -93,8 +98,6 @@ export default function ProductEditScreen() {
     fetchData();
   }, [productId]);
 
-
-  //product form submit handler
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -110,14 +113,18 @@ export default function ProductEditScreen() {
           images,
           category,
           brand,
-          countInStock,
+          inStock,
+          accessories,
+          featured,
           description,
         },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-      dispatch({type: 'UPDATE_SUCCESS',});
+      dispatch({
+        type: 'UPDATE_SUCCESS',
+      });
       toast.success('Product updated successfully');
       navigate('/admin/products');
     } catch (err) {
@@ -126,8 +133,8 @@ export default function ProductEditScreen() {
     }
   };
 
-  //photo upload handler
 
+  ///UPLOAD PHOTO HANDLER
   const uploadFileHandler = async (e, forImages) => {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
@@ -154,8 +161,8 @@ export default function ProductEditScreen() {
     }
   };
 
-  //photo file delete handler
 
+  //DELETE PHOTO HANDLER
   const deleteFileHandler = async (fileName, f) => {
     console.log(fileName, f);
     console.log(images);
@@ -163,7 +170,19 @@ export default function ProductEditScreen() {
     setImages(images.filter((x) => x !== fileName));
     toast.success('Image removed successfully. click Update to apply it');
   };
-  
+
+
+
+
+  const handleSelectChange=(e) => {
+    const selectedaccessoryID = e.target.value;
+    setAccessories([...accessories, selectedaccessoryID])
+  }
+
+
+
+
+
 
   return (
     <Container className="small-container">
@@ -179,14 +198,14 @@ export default function ProductEditScreen() {
       ) : (
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label className='productEditScreenText'>Name</Form.Label>
+            <Form.Label>Name</Form.Label>
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3 productEditScreenText" controlId="slug">
+          <Form.Group className="mb-3" controlId="slug">
             <Form.Label>Slug</Form.Label>
             <Form.Control
               value={slug}
@@ -195,7 +214,7 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label className='productEditScreenText'>Price</Form.Label>
+            <Form.Label>Price</Form.Label>
             <Form.Control
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -203,22 +222,21 @@ export default function ProductEditScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="image">
-            <Form.Label className='productEditScreenText'>Image File</Form.Label>
+            <Form.Label>Image File</Form.Label>
             <Form.Control
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
             />
           </Form.Group>
-          
           <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label className='productEditScreenText'>Upload Image</Form.Label>
+            <Form.Label>Upload Image</Form.Label>
             <Form.Control type="file" onChange={uploadFileHandler} />
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="additionalImage">
-            <Form.Label className='productEditScreenText'>Additional Images</Form.Label>
+            <Form.Label>Additional Images</Form.Label>
             {images.length === 0 && <MessageBox>No image</MessageBox>}
             <ListGroup variant="flush">
               {images.map((x) => (
@@ -231,54 +249,73 @@ export default function ProductEditScreen() {
               ))}
             </ListGroup>
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="imageFile">
-            <Form.Label className='productEditScreenText'>Upload Aditional Image</Form.Label>
+          <Form.Group className="mb-3" controlId="additionalImageFile">
+            <Form.Label>Upload Aditional Image</Form.Label>
             <Form.Control
               type="file"
-              onChange={uploadFileHandler}
+              onChange={(e) => uploadFileHandler(e, true)}
             />
             {loadingUpload && <LoadingBox></LoadingBox>}
           </Form.Group>
-          <Form.Control  className='my-3'
-        type='file'
-        placeholder='photo(s)'
-        multiple
-        />
 
           <Form.Group className="mb-3" controlId="category">
-            <Form.Label className='productEditScreenText'>Category</Form.Label>
+            <Form.Label>Category</Form.Label>
             <Form.Control
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
             />
           </Form.Group>
-          {<Form.Group className="mb-3" controlId="countries">
+          <Form.Group className="mb-3" controlId="brand">
             <Form.Label>Brand</Form.Label>
             <Form.Control
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
-              required={false}
-            />
-              </Form.Group>}
-
-          <Form.Group className="mb-3" controlId="countInStock">
-            <Form.Label className='productEditScreenText'>Count In Stock</Form.Label>
-            <Form.Control
-              value={countInStock}
-              onChange={(e) => setCountInStock(e.target.value)}
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="countInStock">
+            <Form.Label>Count In Stock</Form.Label>
+            <Form.Control
+              value={inStock}
+              onChange={(e) => setinStock(e.target.value)}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className='mt-2'>
+                <Form.Label><h4>Product Accessories</h4></Form.Label>
+                <Form.Control as='select' onChange={handleSelectChange} className='mt-3'>
+                <option value="">-- Select a Product --</option>
+                {names?.map((n)=> (
+                    <option key={n._id} value={n._id}className='mb-2'>
+                        {n.name}
+                    </option>
+                ))}
+                </Form.Control>
+            </Form.Group>
+        <div>
+            <strong>Selected Products</strong>
+            <ol>
+                {accessories.map((selectedId)=>(
+                    <li key={selectedId}><strong>ACCESSORYID: </strong>{selectedId}</li>
+                ))}
+            </ol>
+        </div>
           <Form.Group className="mb-3" controlId="description">
-            <Form.Label className='productEditScreenText'>Description</Form.Label>
+            <Form.Label>Description</Form.Label>
             <Form.Control
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
             />
           </Form.Group>
+          <Form.Check type='checkbox'
+            checked={featured}
+            label='Featured'
+            id='Featured'
+            onChange={(e)=> setFeatured(e.target.checked)}
+          />
           <div className="mb-3">
             <Button disabled={loadingUpdate} type="submit">
               Update

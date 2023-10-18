@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { Store } from '../Store';
+import Alert from 'react-bootstrap/esm/Alert'
+import Timeslots from './Timeslots';
 
 export default function PaymentMethodScreen() {
   const navigate = useNavigate();
@@ -13,9 +15,7 @@ export default function PaymentMethodScreen() {
     cart: { shippingAddress, paymentMethod },
   } = state;
 
-  const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || 'PayPal'
-  );
+  const [paymentMethodName, setPaymentMethod] = useState(paymentMethod);
 
   useEffect(() => {
     if (!shippingAddress.address) {
@@ -33,21 +33,23 @@ export default function PaymentMethodScreen() {
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className="container small-container">
         <Helmet>
-          <title>Payment Method</title>
+          <title>Payment & Delivery</title>
         </Helmet>
-        <h1 className="my-3 productEditScreenText">Payment Method</h1>
+        <h1 className="my-3">Payment & Delicery Details</h1>
+        <Alert variant='dark'>Pay By</Alert>
+
         <Form onSubmit={submitHandler}>
-          <div className="mb-3 productEditScreenText">
+          <div className="mb-3">
             <Form.Check
               type="radio"
-              id="PayPal"
-              label="PayPal"
-              value="PayPal"
-              checked={paymentMethodName === 'PayPal'}
+              id="Cash"
+              label="Cash"
+              value="Cash"
+              checked={paymentMethodName === 'Cash'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
-          <div className="mb-3 productEditScreenText">
+          <div className="mb-3">
             <Form.Check
               type="radio"
               id="Stripe"
@@ -57,18 +59,9 @@ export default function PaymentMethodScreen() {
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
           </div>
-          <div className="mb-3 productEditScreenText">
-            <Form.Check
-              type="radio"
-              id="Cash"
-              label="Cash"
-              value="Cash"
-              checked={paymentMethodName === 'Cash on Delivery'}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            />
-          </div>
+          <Timeslots />
           <div className="mb-3">
-            <Button type="submit">Continue</Button>
+            <Button type="submit" className='w-100'>Continue</Button>
           </div>
         </Form>
       </div>

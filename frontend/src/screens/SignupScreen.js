@@ -18,12 +18,11 @@ export default function SignupScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-
-  
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -34,6 +33,7 @@ export default function SignupScreen() {
       const { data } = await Axios.post('/api/users/signup', {
         name,
         email,
+        phone,
         password,
       });
       ctxDispatch({ type: 'USER_SIGNIN', payload: data });
@@ -58,12 +58,20 @@ export default function SignupScreen() {
       <h1 className="my-3">Sign Up</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="name">
-          <Form.Label className='universal-text-color'>Name</Form.Label>
+          <Form.Label>Name</Form.Label>
           <Form.Control onChange={(e) => setName(e.target.value)} required />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label className='universal-text-color'>Email</Form.Label>
+          <Form.Label>Phone</Form.Label>
+          <Form.Control
+            type="tel"
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          </Form.Group>
+
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             required
@@ -71,14 +79,14 @@ export default function SignupScreen() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label className='universal-text-color'>Password</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             required
             onChange={(e) => setPassword(e.target.value)}
           />
           <Form.Group className="mb-3" controlId="confirmPassword">
-            <Form.Label className='universal-text-color'>Confirm Password</Form.Label>
+            <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               type="password"
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -89,7 +97,7 @@ export default function SignupScreen() {
         <div className="mb-3">
           <Button type="submit">Sign Up</Button>
         </div>
-        <div className="mb-3 universal-text-color">
+        <div className="mb-3">
           Already have an account?{' '}
           <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
         </div>

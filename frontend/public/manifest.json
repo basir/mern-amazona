@@ -1,19 +1,19 @@
 {
-  "short_name": "ug-yard",
-  "name": "Ugandan web shop",
+  "short_name": "Ug-yard",
+  "name": "UG-YARD",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "U-LOGO.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "U-LOGO.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "U-LOGO.png",
       "type": "image/png",
       "sizes": "512x512"
     }

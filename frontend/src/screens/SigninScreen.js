@@ -20,8 +20,6 @@ export default function SigninScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-
-  
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -49,10 +47,9 @@ export default function SigninScreen() {
         <title>Sign In</title>
       </Helmet>
       <h1 className="my-3">Sign In</h1>
-      
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label className='universal-text-color'>Email</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             required
@@ -60,7 +57,7 @@ export default function SigninScreen() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label className='universal-text-color'>Password</Form.Label>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             required
@@ -70,20 +67,13 @@ export default function SigninScreen() {
         <div className="mb-3">
           <Button type="submit">Sign In</Button>
         </div>
-        <div className="mb-3 universal-text-color">
-          {/*New customer?{' '}*/}
-          <Link to={`/signup?redirect=${redirect}`} >Forgot password</Link>
-
-        </div>
-        <div className="mb-3 universal-text-color">
+        <div className="mb-3">
           New customer?{' '}
-          <Link to={`/signup?redirect=${redirect}`} >Create your account</Link>
-
+          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>
         <div className="mb-3">
           Forget Password? <Link to={`/forget-password`}>Reset Password</Link>
         </div>
-
       </Form>
     </Container>
   );

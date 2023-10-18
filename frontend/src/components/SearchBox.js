@@ -8,14 +8,13 @@ import { useNavigate } from 'react-router-dom';
 export default function SearchBox() {
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
-  
   const submitHandler = (e) => {
     e.preventDefault();
     navigate(query ? `/search/?query=${query}` : '/search');
   };
 
   return (
-    <Form className="d-flex me-auto col-sm-7 p-3" onSubmit={submitHandler}>
+    <Form className="d-flex mx-3 px-4 w-100" onSubmit={submitHandler}>
       <InputGroup>
         <FormControl
           type="text"
@@ -26,7 +25,7 @@ export default function SearchBox() {
           aria-label="Search Products"
           aria-describedby="button-search"
         ></FormControl>
-        <Button variant="outline-primary" type="submit" id="button-search">
+        <Button variant="outline-secondary" type="submit" id="button-search">
           <i className="fas fa-search"></i>
         </Button>
       </InputGroup>

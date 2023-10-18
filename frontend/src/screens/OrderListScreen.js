@@ -145,7 +145,7 @@ export default function OrderListScreen() {
                   </Button>
                 </td>
               </tr>
-            )).reverse()}
+            ))}
           </tbody>
         </table>
       )}

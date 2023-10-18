@@ -13,11 +13,11 @@ import axios from 'axios';
 export default function CartScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const {cart: { cartItems }} = state;
+  const { cart: { cartItems}} = state;
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
-    if (data.countInStock < quantity) {
+    if (data.iStock < quantity) {
       window.alert('Sorry. Product is out of stock');
       return;
     }
@@ -53,7 +53,7 @@ export default function CartScreen() {
                   <Row className="align-items-center">
                     <Col md={4}>
                       <img
-                        src={item.image}
+                        src={item.image || item.photo}
                         alt={item.name}
                         className="img-fluid rounded img-thumbnail"
                       ></img>{' '}
@@ -75,12 +75,12 @@ export default function CartScreen() {
                         onClick={() =>
                           updateCartHandler(item, item.quantity + 1)
                         }
-                        disabled={item.quantity === item.countInStock}
+                        disabled={item.quantity === item.inStock}
                       >
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>UGX:{item.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col md={3}>${item.price}</Col>
                     <Col md={2}>
                       <Button
                         onClick={() => removeItemHandler(item)}
@@ -100,10 +100,10 @@ export default function CartScreen() {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h3 className='universal-text-color'>
+                  <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) UGX:  
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0).toLocaleString(undefined, {maximumFractionDigits: 2})}
+                    items) : $
+                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>

@@ -27,15 +27,24 @@ const reducer = (state, action) => {
     case 'CREATE_REQUEST':
       return { ...state, loadingCreate: true };
     case 'CREATE_SUCCESS':
-      return {...state, loadingCreate: false};
+      return {
+        ...state,
+        loadingCreate: false,
+      };
     case 'CREATE_FAIL':
       return { ...state, loadingCreate: false };
+
     case 'DELETE_REQUEST':
       return { ...state, loadingDelete: true, successDelete: false };
     case 'DELETE_SUCCESS':
-      return {...state, loadingDelete: false, successDelete: true};
+      return {
+        ...state,
+        loadingDelete: false,
+        successDelete: true,
+      };
     case 'DELETE_FAIL':
       return { ...state, loadingDelete: false, successDelete: false };
+
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
     default:
@@ -53,7 +62,12 @@ export default function ProductListScreen() {
       loadingCreate,
       loadingDelete,
       successDelete,
-    }, dispatch] = useReducer(reducer, {loading: true, error: ''});
+    },
+    dispatch,
+  ] = useReducer(reducer, {
+    loading: true,
+    error: '',
+  });
 
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -67,13 +81,11 @@ export default function ProductListScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(`/api/products/admin?page=${page} `, {
-          headers: { Authorization: `Bearer ${userInfo.token}`},
+          headers: { Authorization: `Bearer ${userInfo.token}` },
         });
 
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
-      } catch (error) {
-        toast.error(getError(error))
-      }
+      } catch (err) {}
     };
 
     if (successDelete) {
@@ -82,7 +94,6 @@ export default function ProductListScreen() {
       fetchData();
     }
   }, [page, userInfo, successDelete]);
-
 
   const createHandler = async () => {
     if (window.confirm('Are you sure to create?')) {
@@ -111,7 +122,7 @@ export default function ProductListScreen() {
     if (window.confirm('Are you sure to delete?')) {
       try {
         await axios.delete(`/api/products/${product._id}`, {
-          headers: { Authorization: `Bearer ${userInfo.token}`},
+          headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('product deleted successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
@@ -151,22 +162,24 @@ export default function ProductListScreen() {
           <table className="table">
             <thead>
               <tr>
-                <th>ID</th>
+                <th>SKU</th>
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
-                {/*<th>BRAND</th>*/}
+                <th>BRAND</th>
+                <th>STATUS</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
+                  <td>{product.sku}</td>
                   <td>{product.name}</td>
                   <td>{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>{product.featured === true ? 'Featured' : 'Not'}</td>
                   <td>
                     <Button
                       type="button"

@@ -15,6 +15,7 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Accessory from '../components/Accessory';
 import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
@@ -55,8 +56,6 @@ function ProductScreen() {
       loading: true,
       error: '',
     });
-
-
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
@@ -71,12 +70,9 @@ function ProductScreen() {
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-
   const { cart, userInfo } = state;
-
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
-
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
@@ -85,14 +81,13 @@ function ProductScreen() {
     }
     ctxDispatch({
       type: 'CART_ADD_ITEM',
-      payload: {...product, quantity },
+      payload: { ...product, quantity },
     });
     navigate('/cart');
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
     if (!comment || !rating) {
       toast.error('Please enter comment and rating');
       return;
@@ -143,7 +138,7 @@ function ProductScreen() {
               <Helmet>
                 <title>{product.name}</title>
               </Helmet>
-              <h1 className='universal-text-color'>{product.name}</h1>
+              <h1>{product.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
@@ -151,7 +146,7 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Pirce: UGX:{product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</ListGroup.Item>
+            <ListGroup.Item>Pirce : ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               <Row xs={1} md={2} className="g-2">
                 {[product.image, ...product.images].map((x) => (
@@ -170,7 +165,6 @@ function ProductScreen() {
                 ))}
               </Row>
             </ListGroup.Item>
-            
             <ListGroup.Item>
               Description:
               <p>{product.description}</p>
@@ -184,14 +178,14 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col>UGX:{product.price.toLocaleString(undefined, {maximumFractionDigits: 2})}</Col>
+                    <Col>${product.price}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      {product.countInStock > 0 ? (
+                      {product.inStock > 0 ? (
                         <Badge bg="success">In Stock</Badge>
                       ) : (
                         <Badge bg="danger">Unavailable</Badge>
@@ -200,7 +194,7 @@ function ProductScreen() {
                   </Row>
                 </ListGroup.Item>
 
-                {product.countInStock > 0 && (
+                {product.inStock > 0 && (
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button onClick={addToCartHandler} variant="primary">
@@ -214,6 +208,21 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
+      {/* ACCESSORIES */}
+      
+      {product.accessories.length > 0 ? (
+        <Row>
+          <h4 className='p-4 m-3 bg-dark text-light'>Product Accessories</h4>
+          {product.accessories.map((accessory)=> (
+            <Col md={2} xs={6} key={accessory.accessory}>
+            <Accessory accessory={accessory}></Accessory>
+            </Col>
+          ))}
+        </Row>
+      ): (<MessageBox className="py-2">No Accessories</MessageBox>)}
+
+
+      {/* REVIEWS */}
       <div className="my-3">
         <h2 ref={reviewsRef}>Reviews</h2>
         <div className="mb-3">

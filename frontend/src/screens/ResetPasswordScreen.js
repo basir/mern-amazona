@@ -17,13 +17,13 @@ export default function ResetPasswordScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { state } = useContext(Store);
-  const { usxrInfo } = state;
+  const { userInfo } = state;
 
   useEffect(() => {
-    if (usxrInfo || !token) {
+    if (userInfo || !token) {
       navigate('/');
     }
-  }, [navigate, usxrInfo, token]);
+  }, [navigate, userInfo, token]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

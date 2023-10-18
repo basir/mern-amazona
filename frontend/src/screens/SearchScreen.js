@@ -36,15 +36,15 @@ const reducer = (state, action) => {
 
 const prices = [
   {
-    name: '1 to 50',
+    name: '$1 to $50',
     value: '1-50',
   },
   {
-    name: '51 to 200',
+    name: '$51 to $200',
     value: '51-200',
   },
   {
-    name: '201 to 1000',
+    name: '$201 to $1000',
     value: '201-1000',
   },
 ];
@@ -71,11 +71,10 @@ export const ratings = [
   },
 ];
 
-
 export default function SearchScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const sp = new URLSearchParams(search); // /search?category=Vase
+  const sp = new URLSearchParams(search); // /search?category=Shirts
   const category = sp.get('category') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
@@ -99,7 +98,7 @@ export default function SearchScreen() {
       } catch (err) {
         dispatch({
           type: 'FETCH_FAIL',
-          payload: getError(err),
+          payload: getError(error),
         });
       }
     };
@@ -137,7 +136,7 @@ export default function SearchScreen() {
       </Helmet>
       <Row>
         <Col md={3}>
-          <h3>Collections</h3>
+          <h3>Department</h3>
           <div>
             <ul>
               <li>
@@ -148,7 +147,7 @@ export default function SearchScreen() {
                   Any
                 </Link>
               </li>
-              {categories && categories.map((c) => (
+              {categories.map((c) => (
                 <li key={c}>
                   <Link
                     className={c === category ? 'text-bold' : ''}
@@ -183,7 +182,6 @@ export default function SearchScreen() {
               ))}
             </ul>
           </div>
-
           <div>
             <h3>Avg. Customer Review</h3>
             <ul>
@@ -251,12 +249,12 @@ export default function SearchScreen() {
                   </select>
                 </Col>
               </Row>
-              {products && products.length === 0 && (
+              {products.length === 0 && (
                 <MessageBox>No Product Found</MessageBox>
               )}
 
               <Row>
-                {products && products.map((product) => (
+                {products.map((product) => (
                   <Col sm={6} lg={4} className="mb-3" key={product._id}>
                     <Product product={product}></Product>
                   </Col>

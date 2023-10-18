@@ -1,12 +1,12 @@
 {
-  "name": "ugyard.com",
+  "name": "backend",
   "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "dev": "nodemon server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,10 +21,13 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^6.1.5",
     "multer": "^1.4.4",
-    "react-scripts": "^5.0.1",
-    "streamifier": "^0.1.1"
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "streamifier": "^0.1.1",
+    "stripe": "^13.8.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.15"
   }
 }

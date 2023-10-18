@@ -1,97 +1,76 @@
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs';
 
-const data ={
-
-    users:[
-
-        {
-            name: 'Devop',
-            email: 'administrator@example.com',
-            password: bcrypt.hashSync('administrator'),
-            isAdmin: true
-        },
-        {
-            name: 'user',
-            email: 'usertwo@example.com',
-            password: bcrypt.hashSync('administrator'),
-            isAdmin: false,
-        }
-
-    ],
-
-    products: [
-        {
-            //_id:'1',
-            name: 'stylish spring',
-            slug: 'stylish-spring',
-            category: 'bouquet',
-            image:'/images/p1.jpg', //679px X 829px
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality'
-        },
-        {
-            //_id:'2',
-            name: 'Mellow Yellow',
-            slug: 'Mellow-yellow',
-            category: 'bouquet',
-            image:'/images/p1.jpg',
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality',
-        },
-        {
-            //_id:'3',
-            name: 'Red Rose',
-            slug: 'Red-rose',
-            category: 'bouquet',
-            image:'/images/p1.jpg',
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality'
-        },
-        {
-            //_id:'4',
-            name: 'My Beautiful Pastel',
-            slug: 'My Beautiful Pastel',
-            category: 'box',
-            image:'/images/p1.jpg',
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality'
-        },
-        {
-            //_id:'5',
-            name: 'Mellow Box',
-            slug: 'Mellow-Box',
-            category: 'box',
-            image:'/images/p1.jpg',
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality'
-        },
-        {
-            //_id:'6',
-            name: 'Glory box',
-            slug: 'Glory-box',
-            category: 'box',
-            image:'/images/p1.jpg',
-            price: 120,
-            countInStock: 10,
-            rating: 4.5,
-            Reviews: 10,
-            description: 'best quality'
-        },
-    ],
-}
-export default data
+const data = {
+  users: [
+    {
+      name: 'Basir',
+      email: 'admin@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: true,
+    },
+    {
+      name: 'John',
+      email: 'user@example.com',
+      password: bcrypt.hashSync('123456'),
+      isAdmin: false,
+    },
+  ],
+  products: [
+    {
+      // _id: '1',
+      name: 'Rose box',
+      slug: 'rose-box',
+      sku: '',
+      category: 'box',
+      image: '/images/p1.jpg', // 679px × 829px
+      price: 120,
+      inStock: 10,
+      brand: 'uplifting',
+      rating: 4.5,
+      numReviews: 10,
+      description: 'high quality fresh',
+    },
+    {
+      // _id: '2',
+      name: 'Rose box 2',
+      slug: 'rose-box-2',
+      category: 'box',
+      //sku:'',
+      image: '/images/p2.jpg',
+      price: 250,
+      inStock: 0,
+      brand: '',
+      rating: 4.0,
+      numReviews: 10,
+      description: 'high quality fresh',
+    },
+    {
+      // _id: '3',
+      name: 'Big bouquet',
+      //slug: 'big-bouqet',
+      category: 'Bouquet',
+      image: '/images/p3.jpg',
+      price: 25,
+      inStock: 15,
+      brand: 'uplifting',
+      rating: 4.5,
+      numReviews: 14,
+      description: 'high quality bouquet',
+    },
+    {
+      // _id: '4',
+      name: 'Big bouquet 2',
+      //slug: 'big-bouquet-2',
+      category: 'Bouquet',
+      //sku: '',
+      image: '/images/p4.jpg',
+      price: 65,
+      inStock: 5,
+      brand: 'uplifting',
+      rating: 4.5,
+      numReviews: 10,
+      description: 'high quality bouquet',
+    },
+  ],
+};
+export default data;

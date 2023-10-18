@@ -9,28 +9,23 @@ import CheckoutSteps from '../components/CheckoutSteps';
 export default function ShippingAddressScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  
   const {
     fullBox,
     userInfo,
     cart: { shippingAddress },
   } = state;
-
   const [fullName, setFullName] = useState(shippingAddress.fullName || '');
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
-  const [phone, setPhone] = useState(shippingAddress.phone || '');
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
-  const [country, setCountry] = useState(shippingAddress.country || '');
-
-
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ''
+  );
   useEffect(() => {
     if (!userInfo) {
       navigate('/signin?redirect=/shipping');
     }
   }, [userInfo, navigate]);
-
-
+  const [country, setCountry] = useState(shippingAddress.country || '');
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -39,19 +34,17 @@ export default function ShippingAddressScreen() {
         fullName,
         address,
         city,
-        phone,
         postalCode,
         country,
         location: shippingAddress.location,
       },
     });
     localStorage.setItem(
-      'shipping_address',
+      'shippingAddress',
       JSON.stringify({
         fullName,
         address,
         city,
-        phone,
         postalCode,
         country,
         location: shippingAddress.location,
@@ -75,7 +68,7 @@ export default function ShippingAddressScreen() {
         <h1 className="my-3">Shipping Address</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="fullName">
-            <Form.Label className='universal-text-color'>Full Name</Form.Label>
+            <Form.Label>Full Name</Form.Label>
             <Form.Control
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
@@ -83,7 +76,7 @@ export default function ShippingAddressScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="address">
-            <Form.Label className='universal-text-color'>Address</Form.Label>
+            <Form.Label>Address</Form.Label>
             <Form.Control
               value={address}
               onChange={(e) => setAddress(e.target.value)}
@@ -91,23 +84,15 @@ export default function ShippingAddressScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="city">
-            <Form.Label className='universal-text-color'>City</Form.Label>
+            <Form.Label>City</Form.Label>
             <Form.Control
               value={city}
               onChange={(e) => setCity(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="phone">
-            <Form.Label className='universal-text-color'>Phone</Form.Label>
-            <Form.Control
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="postalCode">
-            <Form.Label className='universal-text-color'>Postal Code</Form.Label>
+            <Form.Label>Postal Code</Form.Label>
             <Form.Control
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
@@ -115,7 +100,7 @@ export default function ShippingAddressScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="country">
-            <Form.Label className='universal-text-color'>Country</Form.Label>
+            <Form.Label>Country</Form.Label>
             <Form.Control
               value={country}
               onChange={(e) => setCountry(e.target.value)}
@@ -137,7 +122,7 @@ export default function ShippingAddressScreen() {
                 LNG:{shippingAddress.location.lng}
               </div>
             ) : (
-              <div className='universal-text-color'>No location</div>
+              <div>No location</div>
             )}
           </div>
 
