@@ -149,7 +149,7 @@ userRouter.delete(
         res.status(400).send({ message: 'Can Not Delete Admin User' });
         return;
       }
-      await user.remove();
+      await User.deleteOne({ _id: req.params.id });
       res.send({ message: 'User Deleted' });
     } else {
       res.status(404).send({ message: 'User Not Found' });
