@@ -315,3 +315,6 @@ $ npm start
     4. npm install
     5. replace render with createRoot
     6. fix LinkContainer error
+This repository is updated for Git experiment.
+This repository is updated for Git experiment in practical.
+This line was added from GitHub.
